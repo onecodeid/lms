@@ -1,0 +1,36 @@
+.btn-icon {
+    min-width: 0px;
+    padding: 0 8px;
+}
+
+.btn-icon i.v-icon {
+    font-size: 1.3em
+}
+
+.zalfa-bg-pink-01 {
+    background-color: #c42183 !important
+}
+
+.zalfa-text-pink {
+    color: #c42183 !important
+}
+
+.zalfa-text-title {
+    color: #c42183 !important
+}
+
+.zalfa-bg-purple {
+    background-color: #BA66A1 !important
+}
+
+.zalfa-text-purple {
+    color: #BA66A1 !important
+}
+
+.zalfa-bg-cyan {
+    background-color: #5AADB7 !important
+}
+
+.zalfa-text-over {
+    text-decoration: line-through;
+}
