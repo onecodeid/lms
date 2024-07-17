@@ -98,11 +98,8 @@ module.exports = {
             e1: 2,
             coupon_set: false,
 
-            total_price: 100000,
             coupon_amounts: 0,
             coupon_note: '',
-            grand_total_price: 100000,
-            final_total_price: 100000,
 
             valid: false
         }
@@ -112,7 +109,7 @@ module.exports = {
     },
 
     computed: {
-        ...Vuex.mapState('register', ['payments']),
+        ...Vuex.mapState('register', ['payments', 'selected_item']),
         __s() { return this.$store.state.register },
 
         coupon_code: {
@@ -132,7 +129,15 @@ module.exports = {
 
         step: {
             get () { return this.$store.state.register.step },
-            set (v) { this.$store.commit('register/set_object', ['step', v]) } }
+            set (v) { this.$store.commit('register/set_object', ['step', v]) } },
+
+        total_price () {
+            if (!this.selected_item) return 0
+            return this.selected_item.M_PriceAmount
+        },
+
+        grand_total_price () { return this.total_price },
+        final_total_price () { return this.total_price }
     },
 
     methods: {
