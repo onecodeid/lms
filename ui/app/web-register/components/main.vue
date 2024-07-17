@@ -50,6 +50,8 @@
 </template>
 
 <script>
+const t = Math.floor(Math.random() * 1e12)
+
 module.exports = {
     data() {
         return {
@@ -57,9 +59,9 @@ module.exports = {
     },
 
     components: {
-        "register": httpVueLoader("./register.vue"),
-        "payment": httpVueLoader("./payment.vue"),
-        "success": httpVueLoader("./success.vue")
+        "register": httpVueLoader("./register.vue?t="+t),
+        "payment": httpVueLoader("./payment.vue?t="+t),
+        "success": httpVueLoader("./success.vue?t="+t)
     },
 
     computed : {
