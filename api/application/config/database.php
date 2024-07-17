@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-$db_pass = $_SERVER['SERVER_NAME'] == 'localhost' ? 'one102938' : 'KhilafaH@2024go';
+$db_pass = $_SERVER['SERVER_NAME'] == 'localhost' ? 'one102938' : 'one102938';
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
