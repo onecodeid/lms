@@ -80,9 +80,8 @@ class M_item extends MY_Model
                 FROM `{$this->table_name}`
                 JOIN m_price ON M_PriceM_ItemID = M_ItemID AND M_PriceIsActive = 'Y'
                     AND M_PriceM_CustomerLevelID = {$d['customer_level']}
-                JOIN i_stock ON M_ItemID = I_StockM_ItemID AND I_StockIsActive = 'Y'
-                    AND I_StockQty > 0
-                JOIN m_warehouse ON I_StockM_WarehouseID = M_WarehouseID AND M_WarehouseCode = 'WAREHOUSE.SALES'
+                LEFT JOIN i_stock ON M_ItemID = I_StockM_ItemID AND I_StockIsActive = 'Y'
+                LEFT JOIN m_warehouse ON I_StockM_WarehouseID = M_WarehouseID AND M_WarehouseCode = 'WAREHOUSE.SALES'
                 WHERE `M_ItemName` LIKE ?
                 AND `M_ItemIsActive` = 'Y'", [$d['item_name']]);
         if ($r)
@@ -96,9 +95,8 @@ class M_item extends MY_Model
             FROM `{$this->table_name}`
             JOIN m_price ON M_PriceM_ItemID = M_ItemID AND M_PriceIsActive = 'Y'
                 AND M_PriceM_CustomerLevelID = {$d['customer_level']}
-            JOIN i_stock ON M_ItemID = I_StockM_ItemID AND I_StockIsActive = 'Y'
-                AND I_StockQty > 0
-            JOIN m_warehouse ON I_StockM_WarehouseID = M_WarehouseID AND M_WarehouseCode = 'WAREHOUSE.SALES'
+            LEFT JOIN i_stock ON M_ItemID = I_StockM_ItemID AND I_StockIsActive = 'Y'
+            LEFT JOIN m_warehouse ON I_StockM_WarehouseID = M_WarehouseID AND M_WarehouseCode = 'WAREHOUSE.SALES'
             WHERE `M_ItemName` LIKE ?
             AND `M_ItemIsActive` = 'Y'", [$d['item_name']]);
         if ($r)
