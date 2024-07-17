@@ -4,7 +4,7 @@ if (window.location.hostname == "localhost")
 else
     URLx = "https://" + window.location.hostname + "/api/"
 export const URL = URLx
-export const UPL_URL = "http://platform.zalfa.id/uploads/"
+export const UPL_URL = "http://lpkglobal.onecode.id/uploads/"
 
 export function one_token() {
     let x = ''

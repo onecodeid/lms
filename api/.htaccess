@@ -1,5 +1,5 @@
 <IfModule mod_setenvif.c>
-SetEnvIfNoCase Host app\.zalfa\.id$ ENVIRONTMENT=production
+SetEnvIfNoCase Host lpkglobal\.onecode\.id$ ENVIRONTMENT=production
 SetEnvIfNoCase Host localhost$ ENVIRONTMENT=development
 </IfModule>
 
