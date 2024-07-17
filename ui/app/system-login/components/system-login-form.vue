@@ -12,12 +12,13 @@
           wrap
         >
         <v-flex xs12 sm8 md4>
-            <v-img
+          <h1 class="display-3">SIP LPK GLOBAL</h1>
+            <!-- <v-img
                         src="../assets/img/logo-1-1.png"
                         aspect-ratio="2.5"
                         width="50%"
                         class=""
-                    ></v-img>
+                    ></v-img> -->
         </v-flex>
           <v-flex
             xs12 sm8 md4

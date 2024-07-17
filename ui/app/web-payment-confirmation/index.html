@@ -84,8 +84,6 @@ data : {
    
 },
 mounted: function() {
-    if (!this.$store.state.system.one_token)
-        window.location.replace('../system-login/')
 
     this.$store.dispatch('system/search_menu_group')
     

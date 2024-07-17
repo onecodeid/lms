@@ -23,7 +23,7 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-xs-only">
-                <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.path">
+                <v-btn flat v-for="item in menuItems" :key="item.title"  @click="goTo(item.path, item.blank??null)">
                     <v-icon left dark>{{ item.icon }}</v-icon>
                     {{ item.title }}
                 </v-btn>
@@ -47,10 +47,20 @@ module.exports = {
             appTitle: 'LPK Global',
             sidebar: false,
             menuItems: [
-                { title: 'Home', path: '/home', icon: 'home' },
-                { title: 'Sign Up', path: '/signup', icon: 'face' },
-                { title: 'Sign In', path: '/signin', icon: 'lock_open' }
+                { title: 'Home', path: '/web-home', icon: 'home' },
+                { title: 'Pendaftaran', path: '/web-register', icon: 'face' },
+                { title: 'Konfirmasi', path: '/web-payment-confirmation', icon: 'money' },
+                { title: 'Log In', path: '/system-login', icon: 'lock_open', blank: true }
             ]
+        }
+    },
+
+    methods : {
+        goTo(x, y) {
+            if (!y)
+                location.href = "../"+x
+            else
+                window.open("../"+x, '_blank')
         }
     }
 }
