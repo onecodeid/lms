@@ -41,7 +41,123 @@ class Payment extends MY_Controller
     {
         $r = $this->f_payment->confirm($this->sys_input['payment_id'], $this->sys_user['user_id']);
         if ($r->status == "OK")
+        {
+            $this->load->library('phpmailer_lib');
+            // PHPMailer object
+            $mail = $this->phpmailer_lib->load();
+
+            // SMTP configuration
+            $this->load->model('system/s_email');
+            $em = $this->s_email->get_rotate();
+
+            $mail->isSMTP();
+            $mail->Host     = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = $em->email_username;
+            $mail->Password = $em->email_password;
+            $mail->SMTPSecure = 'tls';
+            $mail->Port     = 587;
+            
+            $mail->setFrom($em->email_username, 'LPK Global');
+
+            // Add a recipient
+            $mail->addAddress("satukode.id@gmail.com");
+            $mail->addAddress("naranis2020@gmail.com");
+
+            // Email subject
+            $mail->Subject = 'Konfirmasi Pembayaran untuk Fulan ';
+                
+            // Set email format to HTML
+            $mail->isHTML(true);
+            
+            // Email body content
+            // $mailContent = "<h1>Send HTML Email using SMTP in CodeIgniter</h1>
+            //     <p>This is a test email sending using SMTP mail server with PHPMailer.</p>";
+            $maildata = json_decode($r->data);
+            $mailContent = '<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Paid Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333333;
+        }
+        .content {
+            font-size: 16px;
+            color: #555555;
+        }
+        .content p {
+            margin: 10px 0;
+        }
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            font-size: 14px;
+            color: #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Invoice Telah Terbayar</h1>
+        </div>
+        <div class="content">
+            <p>Halo,</p>
+            <p>Terima kasih, pembayaran untuk faktur Anda telah kami terima.</p>
+            <p>Berikut adalah detail pembayaran Anda:</p>
+            <p><strong>Nomor Invoice:</strong> '.$maildata->invoice_number.'</p>
+            <p><strong>Nomor Pembayaran:</strong> '.$maildata->payment_number.'</p>
+            <p>Jika Anda memiliki pertanyaan lebih lanjut, jangan ragu untuk menghubungi kami.</p>
+            <p>Salam,</p>
+            <p>LPK Global</p>
+        </div>
+        <div class="footer">
+            <p>© 2024 Perusahaan Anda. Semua Hak Dilindungi.</p>
+        </div>
+    </div>
+</body>
+</html>
+';
+            //$this->load->view('mail/invoice', (array)$r, true);
+            $mail->Body = $mailContent;
+
+            // Send email
+            if(!$mail->send()){
+                echo 'Message could not be sent.';
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            }else{
+                echo 'Email telah terkirim ke Customer';
+                
+                // $this->s_emailschedule->sent($x->S_EmailScheduleID);
+            }
+
             $this->sys_ok($r->data);
+        }
+            
         else
             $this->sys_error($r->message);
     }
