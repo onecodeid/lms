@@ -67,11 +67,12 @@ export default {
                 search : ""
             }
 
-            dispatch("system/postme", {
+            return dispatch("system/postme", {
                 url: "master/item/search_w_price",
                 prm: prm,
                 callback: function(d) {
                     commit("set_object", ['items', d.records])
+                    return d
                 },
                 failback: function(e) {
                     // context.commit('set_common', ['loading_city', false])

@@ -83,7 +83,7 @@ class M_item extends MY_Model
                 LEFT JOIN i_stock ON M_ItemID = I_StockM_ItemID AND I_StockIsActive = 'Y'
                 LEFT JOIN m_warehouse ON I_StockM_WarehouseID = M_WarehouseID AND M_WarehouseCode = 'WAREHOUSE.SALES'
                 WHERE `M_ItemName` LIKE ?
-                AND `M_ItemIsActive` = 'Y'", [$d['item_name']]);
+                AND `M_ItemIsActive` = 'Y' AND ((M_ItemID = ? AND ? <> 0) OR ? = 0)", [$d['item_name'], $d['item_id'], $d['item_id'], $d['item_id']]);
         if ($r)
         {
             $r = $r->result_array();
@@ -98,7 +98,7 @@ class M_item extends MY_Model
             LEFT JOIN i_stock ON M_ItemID = I_StockM_ItemID AND I_StockIsActive = 'Y'
             LEFT JOIN m_warehouse ON I_StockM_WarehouseID = M_WarehouseID AND M_WarehouseCode = 'WAREHOUSE.SALES'
             WHERE `M_ItemName` LIKE ?
-            AND `M_ItemIsActive` = 'Y'", [$d['item_name']]);
+            AND `M_ItemIsActive` = 'Y' AND ((M_ItemID = ? AND ? <> 0) OR ? = 0)", [$d['item_name'], $d['item_id'], $d['item_id'], $d['item_id']]);
         if ($r)
         {
             $l['total'] = $r->row()->n;

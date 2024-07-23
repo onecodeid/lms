@@ -41,6 +41,7 @@
         <!-- Featured Section -->
         <v-col cols="12">
             <v-row>
+                {{ courses }}
                 <v-spacer></v-spacer>
                 <v-col v-for="(item, i) in featuredItems" :key="i" cols="12" md="3" lg="3">
                     <v-card :color="item.color" dark>
@@ -171,6 +172,12 @@ module.exports = {
         }
     },
 
+    computed: {
+        ...Vuex.mapState({
+            courses:s=>s.home.items
+        })
+    },
+
     methods: {
         reserve() {
             this.loading = true
@@ -180,7 +187,7 @@ module.exports = {
     },
 
     mounted() {
-
+        this.$store.dispatch("home/search_item")
     }
 }
 </script>

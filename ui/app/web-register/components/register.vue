@@ -14,6 +14,8 @@
                             Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet
                         </p>
                     </v-sheet>
+
+
                     <!-- </v-sheet> -->
                 </v-col>
                 <v-col cols="12" md="8" lg="7">
@@ -60,10 +62,41 @@
                                         <label class="cyan--text">Data Kursus</label>
                                         <v-divider></v-divider>
                                     </v-col>
-                                    <v-col cols="8" class="pr-2">
+
+                                    <v-col cols="12" v-if="!!itemId" class="mb-3">
+                                        <v-card :color="'grey'" dark v-if="!!selected_item">
+                                            <div class="d-flex flex-no-wrap justify-space-between">
+                                                <div>
+                                                    <v-card-title class="text-h5"
+                                                        v-text="selected_item.M_ItemName"></v-card-title>
+
+                                                        <v-card-text>
+                                                            <div>{{ selected_item.M_ItemDesc }}</div>
+                                                        </v-card-text>
+                                                    <!-- <v-card-subtitle v-text="item.artist"></v-card-subtitle> -->
+
+                                                    <v-card-actions>
+                                                        <!-- <v-btn v-if="item.artist === 'Ellie Goulding'" class="ml-2 mt-3" fab icon
+                                        height="40px" right width="40px">
+                                        <v-icon>mdi-play</v-icon>
+                                    </v-btn> -->
+
+                                                        <!-- <v-btn class="ml-2 mt-5" outlined rounded small>
+                                        START RADIO
+                                    </v-btn> -->
+                                                    </v-card-actions>
+                                                </div>
+
+                                                <v-avatar class="ma-3" size="125" tile>
+                                                    <v-img :src="selected_item.img_url"></v-img>
+                                                </v-avatar>
+                                            </div>
+                                        </v-card>
+                                    </v-col>
+
+                                    <v-col cols="8" class="pr-2" v-else>
                                         <v-select :items="items" label="Pilih kursus" chips item-value="M_ItemID"
-                                            item-text="M_ItemName" v-model="selected_item"
-                                            return-object></v-select>
+                                            item-text="M_ItemName" v-model="selected_item" return-object></v-select>
                                     </v-col>
                                     <v-col cols="4">
                                         <v-select :items="levels" label="Pilih kelas" chips
@@ -171,8 +204,17 @@ module.exports = {
         },
 
         step: {
-            get () { return this.$store.state.register.step },
-            set (v) { this.$store.commit('register/set_object', ['step', v]) } }
+            get() { return this.$store.state.register.step },
+            set(v) { this.$store.commit('register/set_object', ['step', v]) }
+        },
+
+        itemId () {
+            // Membuat instance dari URLSearchParams
+            const params = new URLSearchParams(window.location.search);
+            const itemId = params.get('item_id');
+
+            return itemId
+        }
     },
 
     methods: {
@@ -201,7 +243,17 @@ module.exports = {
     },
 
     mounted() {
-        this.$store.dispatch("register/search_item")
+        // Membuat instance dari URLSearchParams
+        const params = new URLSearchParams(window.location.search);
+
+        // Mendapatkan nilai dari parameter 'name'
+        const itemId = params.get('item_id'); // 'John'
+        // console.log(itemId);
+        this.$store.dispatch("register/search_item").then(d => {
+            if (!!itemId)
+                for (let itm of d.records)
+                    if (parseInt(itm.M_ItemID) == parseInt(itemId)) this.selected_item = itm
+        })
         this.$store.dispatch("register/search_level")
     }
 }

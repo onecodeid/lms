@@ -3,7 +3,7 @@
         <v-card-title primary-title class="pt-2 pb-0">
             <v-layout row wrap>
                 <v-flex xs4>
-                    <h3 class="display-1 font-weight-light zalfa-text-title">Masterdata Customer</h3>
+                    <h3 class="display-1 font-weight-light zalfa-text-title">Masterdata Siswa</h3>
                 </v-flex>
 
                 <v-flex xs2 pr-2>
@@ -62,17 +62,7 @@
                 </v-flex>
 
                 <v-flex xs2>
-                    <v-select
-                        :items="levels"
-                        v-model="selected_level"
-                        item-text="M_CustomerLevelName"
-                        item-value="M_CustomerLevelID"
-                        return-object
-                        solo
-                        placeholder="Semua Level"
-                        hide-details
-                        clearable
-                    ></v-select>    
+                    &nbsp; 
                 </v-flex>
 
                 <v-flex xs2 class="text-xs-right" pl-3>
@@ -89,9 +79,9 @@
                                 <v-icon>search</v-icon>
                             </v-btn>      
 
-                            <v-btn color="orange" dark class="ma-0 ml-2 btn-icon" @click="transfer">
+                            <!-- <v-btn color="orange" dark class="ma-0 ml-2 btn-icon" @click="transfer">
                                 <v-icon>refresh</v-icon>
-                            </v-btn> 
+                            </v-btn>  -->
 
                             <v-btn color="success" class="ma-0 ml-2 btn-icon" @click="add">
                                 <v-icon>add</v-icon>
