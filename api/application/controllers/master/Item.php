@@ -24,7 +24,11 @@ class Item extends MY_Controller
     {
         $cust_level = isset($this->sys_input['customer_level']) ? $this->sys_input['customer_level'] : 1;
         $search = isset($this->sys_input['search'])?'%'.$this->sys_input['search'].'%':'%';
-        $r = $this->m_item->search_w_price(['item_name'=>$search, 'customer_level'=>$cust_level,'item_id'=>isset($this->sys_input['item_id'])?$this->sys_input['item_id']:0]);
+        $r = $this->m_item->search_w_price([
+                'item_name'=>$search, 
+                'customer_level'=>$cust_level,
+                'item_id'=>isset($this->sys_input['item_id'])?$this->sys_input['item_id']:0,
+                'category'=>isset($this->sys_input['category'])?$this->sys_input['category']:0]);
         foreach ($r['records'] as $k => $v)
             $r['records'][$k]['img_url'] = base_url() . 'master/itemimg/show_tmb?id=' . $v['M_ItemID'];
         $this->sys_ok($r);

@@ -80,10 +80,14 @@ class M_item extends MY_Model
                 FROM `{$this->table_name}`
                 JOIN m_price ON M_PriceM_ItemID = M_ItemID AND M_PriceIsActive = 'Y'
                     AND M_PriceM_CustomerLevelID = {$d['customer_level']}
+                JOIN m_category ON M_ItemM_CategoryID = M_CategoryID
                 LEFT JOIN i_stock ON M_ItemID = I_StockM_ItemID AND I_StockIsActive = 'Y'
                 LEFT JOIN m_warehouse ON I_StockM_WarehouseID = M_WarehouseID AND M_WarehouseCode = 'WAREHOUSE.SALES'
                 WHERE `M_ItemName` LIKE ?
-                AND `M_ItemIsActive` = 'Y' AND ((M_ItemID = ? AND ? <> 0) OR ? = 0)", [$d['item_name'], $d['item_id'], $d['item_id'], $d['item_id']]);
+                AND `M_ItemIsActive` = 'Y' AND ((M_ItemID = ? AND ? <> 0) OR ? = 0)
+                AND ((M_ItemM_CategoryID = ? AND ? <> 0) OR ? = 0)
+                GROUP BY M_ItemID", [$d['item_name'], $d['item_id'], $d['item_id'], $d['item_id'],
+                    $d['category'], $d['category'], $d['category']]);
         if ($r)
         {
             $r = $r->result_array();
@@ -91,14 +95,16 @@ class M_item extends MY_Model
         }
 
         $r = $this->db->query(
-            "SELECT count(`{$this->table_key}`) n
+            "SELECT count(distinct `{$this->table_key}`) n
             FROM `{$this->table_name}`
             JOIN m_price ON M_PriceM_ItemID = M_ItemID AND M_PriceIsActive = 'Y'
                 AND M_PriceM_CustomerLevelID = {$d['customer_level']}
             LEFT JOIN i_stock ON M_ItemID = I_StockM_ItemID AND I_StockIsActive = 'Y'
             LEFT JOIN m_warehouse ON I_StockM_WarehouseID = M_WarehouseID AND M_WarehouseCode = 'WAREHOUSE.SALES'
             WHERE `M_ItemName` LIKE ?
-            AND `M_ItemIsActive` = 'Y' AND ((M_ItemID = ? AND ? <> 0) OR ? = 0)", [$d['item_name'], $d['item_id'], $d['item_id'], $d['item_id']]);
+            AND `M_ItemIsActive` = 'Y' AND ((M_ItemID = ? AND ? <> 0) OR ? = 0)
+            AND ((M_ItemM_CategoryID = ? AND ? <> 0) OR ? = 0)", [$d['item_name'], $d['item_id'], $d['item_id'], $d['item_id'],
+                    $d['category'], $d['category'], $d['category']]);
         if ($r)
         {
             $l['total'] = $r->row()->n;

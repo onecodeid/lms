@@ -20,7 +20,23 @@
             <v-row dense>
                 <!-- FILTER -->
                 <v-col cols="3">
-                    FILTER
+                    <v-card>
+                        <v-card-title>
+                            <h3>Filter</h3>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field label="Pencarian" outlined v-model="search"></v-text-field>
+                                    <v-select :items="categories" v-model="selectedCategory" return-object label="Kategori" outlined
+                                        item-value="M_CategoryID"
+                                        item-text="M_CategoryName"
+                                        clearable></v-select>
+                                    <v-btn block class="primary" @click="searchNow">Terapkan</v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
                 </v-col>
                 <!-- END OF FILTER -->
                 <v-col cols="9">
@@ -38,11 +54,11 @@
 
                                 <v-card-text>
                                     <v-row align="center" class="mx-0">
-                                        <v-rating :value="4.5" color="amber" dense half-increments readonly
-                                            size="14"></v-rating>
+                                        <!-- <v-rating :value="4.5" color="amber" dense half-increments readonly
+                                            size="14"></v-rating> -->
 
-                                        <div class="grey--text ms-4">
-                                            4.5 (413)
+                                        <div class="grey--text">
+                                            Kategori : {{ item.M_CategoryName }}
                                         </div>
                                     </v-row>
 
@@ -139,8 +155,18 @@ module.exports = {
 
     computed: {
         ...Vuex.mapState({
-            courses: s => s.home.items
-        })
+            courses: s => s.home.items,
+            categories: s => s.home.categories,
+            __s: s => s.home
+        }),
+
+        search : {
+            get () { return this.__s.search },
+            set (v) { this.$store.commit("home/set_object", ["search", v]) } },
+
+        selectedCategory : {
+            get () { return this.__s.selectedCategory },
+            set (v) { this.$store.commit("home/set_object", ["selectedCategory", v]) } },
     },
 
     methods: {
@@ -156,11 +182,17 @@ module.exports = {
 
         reserve(x) {
             window.open("../web-register?item_id=" + x.M_ItemID)
+        },
+
+        searchNow() {
+            this.$store.dispatch("home/search_item")
         }
     },
 
     mounted() {
-        this.$store.dispatch("home/search_item")
+        this.$store.dispatch("home/search_category").then(x => {
+            this.$store.dispatch("home/search_item")
+        })
     }
 }
 </script>

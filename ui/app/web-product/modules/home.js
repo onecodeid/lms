@@ -9,7 +9,11 @@ export default {
         items: [],
         total_item: 0,
         selected_item: {},
-        selected_items: []
+        selected_items: [],
+
+        search: "",
+        categories: [],
+        selectedCategory: null
     },
     mutations: {
         set_common (state, v) {
@@ -32,7 +36,8 @@ export default {
             let prm = {
                 token : one_token(),
                 customer_level : 5,
-                search : ""
+                search : state.search,
+                category : state.selectedCategory ? state.selectedCategory.M_CategoryID : 0
             }
 
             dispatch("system/postme", {
@@ -40,6 +45,24 @@ export default {
                 prm: prm,
                 callback: function(d) {
                     commit("set_object", ['items', d.records])
+                },
+                failback: function(e) {
+                    // context.commit('set_common', ['loading_city', false])
+                }
+            }, { root: true })
+        },
+
+        async search_category({state, commit, dispatch}) {
+            let prm = {
+                search : ""
+            }
+
+            return dispatch("system/postme", {
+                url: "master/category/search",
+                prm: prm,
+                callback: function(d) {
+                    commit("set_object", ['categories', d.records])
+                    return d
                 },
                 failback: function(e) {
                     // context.commit('set_common', ['loading_city', false])
