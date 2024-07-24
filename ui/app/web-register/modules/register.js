@@ -161,6 +161,10 @@ export default {
                 cust_phone: state.cust_phone,
                 order_note: state.order_note,
 
+                schedule_id: state.selected_schedule ?? 0,
+                schedule_day: state.selected_day ?? 0,
+                schedule_time: state.schedule_time,
+
                 token: one_token()
             }
 

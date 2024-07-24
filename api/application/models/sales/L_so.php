@@ -64,6 +64,9 @@ class L_So extends MY_Model
             'leadsource' => isset($inp['leadsource'])?$inp['leadsource']:null,
             'sales_ads' => isset($inp['sales_ads'])?$inp['sales_ads']:'',
             'sales_mp' => isset($inp['sales_mp'])?$inp['sales_mp']:'',
+            'schedule_id' => isset($inp['schedule_id'])?$inp['schedule_id']:0,
+            'schedule_day' => isset($inp['schedule_day'])?$inp['schedule_day']:0,
+            'schedule_time' => isset($inp['schedule_time'])?$inp['schedule_time']:'00:00'
         ]);
 
         $cdata = json_encode([
