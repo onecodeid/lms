@@ -104,6 +104,41 @@
                                             v-model="selectedLevel"></v-select>
                                     </v-col>
 
+                                    <v-col cols="12" v-if="!!selectedLevel&&selectedLevel==5">
+                                        <v-select :items="schedules" label="Pilih Jadwal" chips
+                                            item-value="schedule_id" item-text="day_name"
+                                            v-model="selected_schedule" solo>
+                                            <template slot="item" slot-scope="data">
+                                                {{ data.item.day_name }} <span class="font-weight-light mx-2">jam</span> {{ data.item.schedule_time }}
+                                            </template>
+                                            <template slot="selection" slot-scope="data">
+                                                {{ data.item.day_name }} <span class="font-weight-light mx-2">jam</span> {{ data.item.schedule_time }}
+                                            </template>
+                                        </v-select>
+                                    </v-col>
+
+                                    <v-col cols="12">
+                                        <v-row no-gutters>
+                                            <v-col cols="4" v-if="!!selectedLevel&&selectedLevel==1">
+                                                <v-select :items="days" label="Pilih Hari" chips
+                                                    item-value="day_id" item-text="day_name"
+                                                    v-model="selected_day" solo>
+                                                </v-select>
+                                            </v-col>
+
+                                            <v-col cols="4" class="pl-2" v-if="!!selectedLevel&&selectedLevel==1">
+                                                <v-text-field
+                                                    solo
+                                                    hide-details
+                                                    class="input-dense"
+                                                    v-model="schedule_time"
+                                                    reverse
+                                                    suffix="Jam"
+                                                ></v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                    </v-col>
+                                    
                                     <v-col class="text-xs-center d-flex" mt-5 cols="12">
                                         <v-spacer></v-spacer>
                                         <v-btn color="primary" type="submit">Selanjutnya</v-btn>
@@ -155,7 +190,7 @@ module.exports = {
     },
 
     computed: {
-        ...Vuex.mapState('register', ['sexes', 'items', 'levels', 'cust_id']),
+        ...Vuex.mapState('register', ['sexes', 'items', 'levels', 'cust_id', 'schedules', 'days']),
         ...Vuex.mapState({ __s: s => s.register }),
 
         cust_name: {
@@ -195,7 +230,10 @@ module.exports = {
 
         selected_item: {
             get() { return this.__s.selected_item },
-            set(v) { this.setObject('selected_item', v) }
+            set(v) { 
+                this.setObject('selected_item', v)
+                this.$store.dispatch("register/search_schedule")
+            }
         },
 
         selectedLevel: {
@@ -214,6 +252,21 @@ module.exports = {
             const itemId = params.get('item_id');
 
             return itemId
+        },
+
+        selected_schedule: {
+            get() { return this.__s.selected_schedule },
+            set(v) { this.setObject('selected_schedule', v) }
+        },
+
+        selected_day: {
+            get() { return this.__s.selected_day },
+            set(v) { this.setObject('selected_day', v) }
+        },
+
+        schedule_time: {
+            get() { return this.__s.schedule_time },
+            set(v) { this.setObject('schedule_time', v) }
         }
     },
 
@@ -255,6 +308,7 @@ module.exports = {
                     if (parseInt(itm.M_ItemID) == parseInt(itemId)) this.selected_item = itm
         })
         this.$store.dispatch("register/search_level")
+        this.$store.dispatch("register/search_day")
     }
 }
 </script>

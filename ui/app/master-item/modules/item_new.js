@@ -36,6 +36,11 @@ export default {
         selected_price: {},
         total_level: 0,
 
+        schedules: [],
+        selectedSchedule: null,
+        scheduleDefault: { id:0, day:0, time:'00:00', capacity:0 },
+        days: [],
+
         sdate: '',
         edate: '',
 
@@ -49,6 +54,12 @@ export default {
                 eval(`state.${name} = "${val}"`)
             else
                 eval(`state.${name} = ${val}`)
+        },
+
+        set_object(state, v) {
+            let name = v[0]
+            let val = v[1]
+            state[name] = val
         },
 
         update_search_error_message(state, msg) {
@@ -133,7 +144,8 @@ export default {
                             item_hpp: context.state.item_hpp,
                             item_publish: context.state.item_publish,
                             prices: JSON.stringify(prices),
-                            fees: JSON.stringify(fees)
+                            fees: JSON.stringify(fees),
+                            schedules: JSON.stringify(context.state.schedules)
                         }
 
                 if (context.state.edit)
@@ -242,6 +254,25 @@ export default {
                 context.commit("update_search_error_message", e.message)
                 console.log(e)
             }
+        },
+
+        async search_day({state, commit, dispatch}) {
+            let prm = {
+                token : one_token(),
+                search : ""
+            }
+
+            dispatch("system/postme", {
+                url: "master/day/search",
+                prm: prm,
+                callback: function(d) {
+                    commit("set_object", ['days', d.records])
+                    console.log(d)
+                },
+                failback: function(e) {
+                    // context.commit('set_common', ['loading_city', false])
+                }
+            }, { root: true })
         }
     }
 }

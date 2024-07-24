@@ -47,6 +47,8 @@ class M_item extends MY_Model
 
                 $x = $this->m_fee->search_by_item(['item_id'=>$v['M_ItemID']]);
                 $r[$k]['fees'] = $x['records'];
+
+                $r[$k]['schedules'] = $this->search_schedules($v['M_ItemID']);
             }
 
             $l['records'] = $r;
@@ -91,6 +93,11 @@ class M_item extends MY_Model
         if ($r)
         {
             $r = $r->result_array();
+            foreach ($r as $k => $v)
+            {
+                $r[$k]['schedules'] = $this->search_schedules($v['M_ItemID']);
+            }
+
             $l['records'] = $r;
         }
 
@@ -150,6 +157,10 @@ class M_item extends MY_Model
         $this->db->query("CALL sp_master_fee_save(?, ?)", [$id, $d['fees']]);
         $this->clean_mysqli_connection($this->db->conn_id);
 
+        // UPDATE SCHEDULES
+        $this->db->query("CALL sp_master_schedule_save(?, ?)", [$id, $d['schedules']]);
+        $this->clean_mysqli_connection($this->db->conn_id);
+
         return ["status"=>"OK", "data"=>$id, "q"=>$this->db->last_query()];
     }
 
@@ -165,6 +176,20 @@ class M_item extends MY_Model
                 ->update('m_price');
 
         return true;
+    }
+
+    function search_schedules($id)
+    {
+        $r = $this->db->query("SELECT M_ScheduleID id, M_ScheduleM_DayID as `day`, M_ScheduleTime `time`, M_ScheduleCapacity as capacity, M_DayName dayname
+                FROM m_schedule 
+                JOIN m_day ON M_ScheduleM_DayID = M_DayID
+                WHERE M_ScheduleM_ItemID = ?
+                aND M_ScheduleIsActive = 'Y'
+                ORDER BY M_ScheduleM_DayID, M_ScheduleTime", [$id]);
+        if ($r->num_rows() > 0)
+            return $r->result_array();
+
+        return [];
     }
 }
 

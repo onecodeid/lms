@@ -208,6 +208,7 @@ module.exports = {
             this.$store.commit('item_new/set_common', ['sdate', new Date().toISOString().substr(0, 10)])
             this.$store.commit('item_new/set_common', ['edate', new Date().toISOString().substr(0, 10)])
             this.$store.commit('item_new/set_dialog_new', true)
+            this.$store.commit('item_new/set_object', ['schedules', []])
 
             let levels = this.$store.state.item_new.levels
             let fees = []
@@ -236,6 +237,7 @@ module.exports = {
             this.$store.commit('item_new/set_common', ['item_min', sc.M_ItemMinStock])
             this.$store.commit('item_new/set_common', ['item_hpp', sc.M_ItemHPP])
             this.$store.commit('item_new/set_common', ['item_publish', sc.M_ItemIsPublished])
+            this.$store.commit('item_new/set_object', ['schedules', sc.schedules])
 
             // UNIT
             let u = this.$store.state.item_new.units

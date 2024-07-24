@@ -165,6 +165,48 @@
                         </v-layout>
 
                         <v-layout row wrap>
+                            <v-flex xs12 class="d-flex">
+                                <h3 class="title mt-4">Jadwal</h3><v-spacer></v-spacer>
+                                <v-btn @click="scheduleAdd">+</v-btn>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-layout row wrap v-for="(sch, n) in schedules" :key="n" class="pb-2">
+                                    <v-flex xs4>
+                                        <v-select
+                                            solo
+                                            hide-details
+                                            class="input-dense"
+                                            :value="sch.day"
+                                            :items="days" item-value="day_id" item-text="day_name"
+                                            @change="changeSchValue(n, 'day', $event)"
+                                        ></v-select>
+                                    </v-flex>
+                                    <v-flex xs3 class="pl-2">
+                                        <v-text-field
+                                            solo
+                                            hide-details
+                                            class="input-dense"
+                                            :value="sch.time"
+                                            reverse
+                                            suffix="Jam"
+                                            @change="changeSchValue(n, 'time', $event)"
+                                        ></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs3 class="pl-2">
+                                        <v-text-field
+                                            solo
+                                            hide-details
+                                            class="input-dense"
+                                            :value="sch.capacity"
+                                            reverse
+                                            suffix="Kapasitas"
+                                            @change="changeSchValue(n, 'capacity', $event)"
+                                        ></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                            </v-flex>
+                        </v-layout>
+                        <!-- <v-layout row wrap>
                             <v-flex xs4>
                                 <h3 class="title mt-4">Harga Promo</h3>
                             </v-flex>
@@ -198,6 +240,7 @@
                             <v-flex xs4>
                                 
                             </v-flex>
+                            
                             <v-flex xs12>
                                 <div class="elevation-1">
                                     <v-layout row wrap>
@@ -219,39 +262,9 @@
                                             </v-layout>
                                         </v-flex>
                                     </v-layout>
-                                    <!-- <div class="v-table__overflow">
-                                        <table class="v-datatable v-table theme--light">
-                                            <thead>
-                                                <tr>
-                                                    <th 
-                                                        role="columnheader" scope="col" width="16.6%" 
-                                                        aria-label="LEVEL: Not sorted." aria-sort="none" 
-                                                        class="column text-xs-center pa-2 zalfa-bg-purple lighten-3 white--text"
-                                                        v-for="(level, n) of levels" v-bind:key="n">
-                                                        {{level.M_CustomerLevelName.toUpperCase()}}
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td v-for="(level, n) of levels" v-bind:key="n" class="pa-1">
-                                                        <v-text-field
-                                                            solo
-                                                            hide-details
-                                                            reverse
-                                                            class="input-dense"
-                                                            :value="prices[level.M_CustomerLevelCode]?prices[level.M_CustomerLevelCode].sale:0"
-                                                            @change="change_price('Sale', n, $event)"
-                                                        ></v-text-field>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div> -->
                                 </div>  
                             </v-flex>
-                                
-                        </v-layout>
+                        </v-layout> -->
 
                     </v-flex>
                 </v-layout>
@@ -341,7 +354,10 @@ module.exports = {
 
     computed : {
         ...Vuex.mapState({
-            edit: s => s.item_new.edit
+            edit: s => s.item_new.edit,
+            schedules: s => s.item_new.schedules,
+            scheduleDefault: s => s.item_new.scheduleDefault,
+            days: s => s.item_new.days
         }),
 
         dialog : {
@@ -521,9 +537,23 @@ module.exports = {
             this.sdate = x.new_date
         },
 
-        publish (x) {
+        publish(x) {
             this.$store.commit('item_new/set_common', ['item_publish', x])
             this.save()
+        },
+
+        scheduleAdd() {
+            let schs = structuredClone(this.schedules)
+            schs.push(structuredClone(this.scheduleDefault))
+
+            this.$store.commit('item_new/set_object', ['schedules', schs])
+        },
+
+        changeSchValue(x, y, z) {
+            let schs = structuredClone(this.schedules)
+            schs[x][y] = z
+
+            this.$store.commit('item_new/set_object', ['schedules', schs])
         }
     },
 
@@ -531,6 +561,7 @@ module.exports = {
         this.$store.dispatch('item_new/search_unit', [])
         this.$store.dispatch('item_new/search_category', [])
         this.$store.dispatch('item_new/search_level_price', [])
+        this.$store.dispatch('item_new/search_day')
     },
 
     watch : {

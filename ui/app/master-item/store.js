@@ -4,8 +4,8 @@
 //
 //
 // Actions
-import item from "./modules/item.js";
-import item_new from "./modules/item_new.js?t=asd";
+import item from "./modules/item.js?t=as";
+import item_new from "./modules/item_new.js?t=assd";
 // import doctor from "./modules/doctor.js";
 // import payment from "./modules/payment.js";
 // import order from "./modules/order.js";

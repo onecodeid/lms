@@ -41,6 +41,12 @@ export default {
         order_note: '',
         invoiceNumber: '',
 
+        schedules: [],
+        selected_schedule: null,
+        days: [],
+        selected_day: null,
+        schedule_time: '00:00',
+
         selected_order: {}
     },
     mutations: {
@@ -91,8 +97,6 @@ export default {
                 prm: prm,
                 callback: function(d) {
                     commit("set_object", ['levels', d.records])
-
-                    console.log(d)
                 },
                 failback: function(e) {
                     // context.commit('set_common', ['loading_city', false])
@@ -112,8 +116,6 @@ export default {
                 callback: function(d) {
                     commit("set_object", ['payments', d.records])
                     commit("set_object", ['selected_payment', d.records[0].M_PaymentTypeID])
-
-                    console.log(d)
                 },
                 failback: function(e) {
                     // context.commit('set_common', ['loading_city', false])
@@ -186,6 +188,45 @@ export default {
                     return d
                 },
 
+                failback: function(e) {
+                    // context.commit('set_common', ['loading_city', false])
+                }
+            }, { root: true })
+        },
+
+        async search_schedule({state, commit, dispatch}) {
+            let prm = {
+                token: one_token(),
+                item_id: state.selected_item.M_ItemID
+            }
+
+            return dispatch("system/postme", {
+                url: 'master/schedule/search',
+                prm: prm,
+                callback: function(d) {
+                    commit("set_object", ['schedules', d.records])
+                    // commit("set_object", ['selected_payment', d.records[0].M_PaymentTypeID])
+
+                    return d
+                },
+                failback: function(e) {
+                    // context.commit('set_common', ['loading_city', false])
+                }
+            }, { root: true })
+        },
+
+        async search_day({state, commit, dispatch}) {
+            let prm = {
+                token : one_token(),
+                search : ""
+            }
+
+            dispatch("system/postme", {
+                url: "master/day/search",
+                prm: prm,
+                callback: function(d) {
+                    commit("set_object", ['days', d.records])
+                },
                 failback: function(e) {
                     // context.commit('set_common', ['loading_city', false])
                 }
