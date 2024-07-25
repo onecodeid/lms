@@ -3,7 +3,7 @@
         <v-card-title primary-title class="pt-2 pb-0">
             <v-layout row wrap>
                 <v-flex xs5>
-                    <h3 class="display-1 zalfa-text-pink font-weight-light">DAFTAR TRANSAKSI</h3>
+                    <h3 class="display-1 zalfa-text-pink font-weight-light">DAFTAR PENERIMAAN KAS</h3>
                 </v-flex>
                 <v-flex xs2>
                     <common-datepicker

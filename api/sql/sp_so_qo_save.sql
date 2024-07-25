@@ -23,6 +23,9 @@ DECLARE item_price DOUBLE;
 DECLARE item_disc DOUBLE;
 DECLARE item_discrp DOUBLE;
 DECLARE item_name VARCHAR(100);
+DECLARE sch_id INTEGER;
+DECLARE sch_day INTEGER;
+DECLARE sch_time VARCHAR(10);
 DECLARE is_packet CHAR(1);
 
 DECLARE expedition_id INTEGER;
@@ -182,6 +185,12 @@ IF order_id = 0 THEN
 		SET item_disc = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.item_disc'));
 		SET item_discrp = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.item_discrp'));
 		SET is_packet = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.is_packet'));
+
+		SET sch_id = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.sch_id'));
+		SET sch_day = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.sch_day'));
+		SET sch_time = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.sch_time'));
+
+		IF sch_time IS NULL THEN SET sch_time = "00:00"; END IF;
 		
 		IF is_packet = "N" THEN
 			INSERT INTO l_sodetail(L_SoDetailL_SoID,
@@ -192,8 +201,12 @@ IF order_id = 0 THEN
 				L_SoDetailQty,
 				L_SoDetailM_ItemCode,
 				L_SoDetailM_ItemName,
-				L_SoDetailSalesCode)
-			SELECT order_id, item_id, item_price, item_disc, item_discrp, item_qty, M_ItemCode, M_ItemName, M_ItemCode
+				L_SoDetailSalesCode,
+				L_SoDetailM_ScheduleID,
+				L_SoDetailM_DayID,
+				L_SoDetailScheduleTime)
+			SELECT order_id, item_id, item_price, item_disc, item_discrp, item_qty, M_ItemCode, M_ItemName, M_ItemCode,
+				sch_id, sch_day, sch_time
 			FROM m_item WHERE M_ItemID = item_id;
 			
 			

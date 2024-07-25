@@ -147,7 +147,10 @@ export default {
                     item_price: state.selected_item.M_PriceAmount,
                     item_disc: 0,
                     item_discrp: 0,
-                    is_packet: 'N'}],
+                    is_packet: 'N',
+                    sch_id:state.selected_schedule ?? 0,
+                    sch_day:state.selected_day ?? 0,
+                    sch_time:state.schedule_time}],
                 cust_id: 0,
                 cust_name: state.cust_name,
                 cust_address: state.cust_address,
@@ -160,10 +163,6 @@ export default {
                 
                 cust_phone: state.cust_phone,
                 order_note: state.order_note,
-
-                schedule_id: state.selected_schedule ?? 0,
-                schedule_day: state.selected_day ?? 0,
-                schedule_time: state.schedule_time,
 
                 token: one_token()
             }

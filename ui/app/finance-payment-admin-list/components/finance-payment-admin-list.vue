@@ -3,7 +3,7 @@
         <v-card-title primary-title class="pt-2 pb-0">
             <v-layout row wrap>
                 <v-flex xs4>
-                    <h3 class="display-1 font-weight-thin"><span class="orange--text">PEMBAYARAN</span> TRANSAKSI</h3>
+                    <h3 class="display-1 font-weight-thin"><span class="orange--text">DAFTAR</span> PIUTANG</h3>
                 </v-flex>
                 <v-flex xs2>
                     <common-datepicker

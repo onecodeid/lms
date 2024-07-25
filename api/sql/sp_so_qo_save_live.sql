@@ -81,7 +81,8 @@ SET cust_name = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_name'));
 SET cust_address = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_address'));
 SET cust_phone = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_phone'));
 SET cust_postcode = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_postcode'));
-SET cust_kelurahan_id = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_kelurahan_id'));
+SET cust_kelurahan_id = 0; 
+-- JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_kelurahan_id'));
 SET cust_level_id = (SELECT M_CustomerLevelID FROM m_customerlevel WHERE M_CustomerLevelCode = "CUST.ENDUSER");
 
 IF cust_id IS NULL OR cust_id = 0 THEN
@@ -95,10 +96,10 @@ IF cust_id IS NULL OR cust_id = 0 THEN
 	SET cust_id = (SELECT LAST_INSERT_ID());
 END IF;
 
-SET expedition_id = JSON_UNQUOTE(JSON_EXTRACT(hdata, '$.expedition_id'));
+SET expedition_id = 0; -- JSON_UNQUOTE(JSON_EXTRACT(hdata, '$.expedition_id'));
 SET payment_id = JSON_UNQUOTE(JSON_EXTRACT(hdata, '$.payment_id'));
 SET channel = JSON_UNQUOTE(JSON_EXTRACT(hdata, '$.channel'));
-SET courier_cost = JSON_UNQUOTE(JSON_EXTRACT(hdata, '$.courier_cost'));
+SET courier_cost = 0; -- JSON_UNQUOTE(JSON_EXTRACT(hdata, '$.courier_cost'));
 SET ex_other = JSON_UNQUOTE(JSON_EXTRACT(hdata, '$.ex_other'));
 SET ex_note = JSON_UNQUOTE(JSON_EXTRACT(hdata, '$.ex_note'));
 SET ex_code = (SELECT M_ExpeditionCode FROM m_expedition WHERE M_ExpeditionID = expedition_id);
@@ -239,28 +240,28 @@ END IF;
 SET unstock = (SELECT GROUP_CONCAT(item_namex SEPARATOR ", ") FROM
 				(SELECT L_SoDetailM_ItemName item_namex, SUM(L_SoDetailQty) detail_qty, IFNULL(I_StockQty, 0) stock_qty
 				FROM l_sodetail
-				LEFT JOIN i_stock ON L_SoDetailM_ItemID = I_StockM_ItemID AND I_StockIsActive = "Y"
+				LEFT JOIN i_stock ON L_SoDetailM_ItemID = I_StockM_ItemID AND I_StockIsActive = "Y" AND I_StockM_WarehouseID = 2
 				WHERE L_SoDetailL_SoID = order_id AND L_SoDetailIsActive = "Y" AND L_SoDetailIsPacket = "N"
 				GROUP BY L_SoDetailM_ItemID
 				HAVING detail_qty > stock_qty) x);
 
-IF unstock IS NOT NULL THEN
-	SELECT "ERR" status, unstock data, CONCAT("Item ", unstock, " tidak mencukupi stoknya") message;
-	ROLLBACK;
-ELSE
+-- IF unstock IS NOT NULL THEN
+-- 	SELECT "ERR" status, unstock data, CONCAT("Item ", unstock, " tidak mencukupi stoknya") message;
+-- 	ROLLBACK;
+-- ELSE
 	
 	
-	UPDATE l_sodetail SET L_SoDetailApprovedQty = L_SoDetailQty, L_SoDetailApproved = "Y", L_SoDetailApprovedDate = now(), L_SoDetailApprovedUserID = uid
-	WHERE L_SoDetailL_SoID = order_id;
-	UPDATE l_so
-	JOIN m_orderstatus ON M_OrderStatusCode = "SO.Approved" AND M_OrderStatusIsActive = "Y"
-	SET L_SoApproved = "Y", L_SoM_OrderStatusID = M_OrderStatusID
-	WHERE L_SoID = order_id;
+-- 	UPDATE l_sodetail SET L_SoDetailApprovedQty = L_SoDetailQty, L_SoDetailApproved = "Y", L_SoDetailApprovedDate = now(), L_SoDetailApprovedUserID = uid
+-- 	WHERE L_SoDetailL_SoID = order_id;
+-- 	UPDATE l_so
+-- 	JOIN m_orderstatus ON M_OrderStatusCode = "SO.Approved" AND M_OrderStatusIsActive = "Y"
+-- 	SET L_SoApproved = "Y", L_SoM_OrderStatusID = M_OrderStatusID
+-- 	WHERE L_SoID = order_id;
 	
--- COUPON DETAIL 
-CALL sp_so_coupon_detail(coupon_id, coupon_type, order_id);
 
--- SET SUB TOTAL COUPON
+-- CALL sp_so_coupon_detail(coupon_id, coupon_type, order_id);
+
+
 UPDATE l_so 
 JOIN (
 SELECT L_SoDetailL_SoID so_id, SUM(L_SoDetailSubTotal) sub_total FROM l_sodetail WHERE L_SoDetailIsActive = "Y" AND L_SoDetailL_SoID = order_id AND L_SoDetailM_CouponID = coupon_id
@@ -275,7 +276,7 @@ WHERE L_SoID = order_id;
 FROM l_so WHERE L_SoID = order_id;
 
 	COMMIT;
-END IF;
+-- END IF;
 
 
 END;;
