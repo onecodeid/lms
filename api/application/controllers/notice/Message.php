@@ -120,14 +120,14 @@ class Message extends MY_Controller
 
     function save_img($base64_string, $output_file)
     {
-        $uri = getcwd().'/../../platform-zalfa/uploads/images/info/';
+        $uri = getcwd().'/../../lms/uploads/images/info/';
         // $uri = getcwd().'/../../global-assets/images/info/';
         return $this->base64_to_jpeg($base64_string, $uri.$output_file);
     }
 
     function get_img_md5()
     {
-        $uri = getcwd().'/../../platform-zalfa/uploads/images/info/';
+        $uri = getcwd().'/../../lms/uploads/images/info/';
 
         // Read the image file into a string
         $image_file = $uri . $this->sys_input['image'];
