@@ -4,7 +4,7 @@
 //
 //
 // Actions
-import payment from "./modules/payment.js";
+import payment from "./modules/payment.js?t=asd";
 import payment2 from "../finance-payment-admin-list/modules/payment.js";
 import system from "../assets/js/system.js";
 

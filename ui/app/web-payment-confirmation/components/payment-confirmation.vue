@@ -273,7 +273,9 @@ module.exports = {
                 // console.log('Form Data:', this.formData);
                 // alert('Form submitted!');
 
-                this.$store.dispatch("payment/confirm")
+                this.$store.dispatch("payment/confirm").then(x => {
+                    this.__c("step", 1)
+                })
                 // Reset the form if needed
                 // this.$refs.form.reset();
             }

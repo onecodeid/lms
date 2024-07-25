@@ -17,7 +17,9 @@ export default {
 
         invoiceId: 0,
         invoiceNumber: '',
-        invoiceTotal: 0
+        invoiceTotal: 0,
+
+        step: 0
     },
     mutations: {
         set_common (state, v) {

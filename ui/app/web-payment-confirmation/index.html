@@ -25,7 +25,8 @@
                 <common-navbar></common-navbar>
                 <v-main class="blue lighten-5 one">
                     <v-container>
-                        <payment-confirmation></payment-confirmation>
+                        <payment-confirmation v-if="step==0"></payment-confirmation>
+                        <payment-success v-if="step==1"></payment-success>
                     </v-container>
                 </v-main>
                 <!-- <v-footer class="mb-5 footer" app color="transparent">
@@ -89,6 +90,8 @@ mounted: function() {
     
 },
 computed : {
+    ...Vuex.mapState('payment', ['step']),
+
     one_token () {
         return this.$store.state.system.one_token
     },
@@ -107,8 +110,9 @@ methods : {
 },
    el: '#app',
    components: {
-        "common-navbar" : httpVueLoader("../web-common/components/navbar.vue"),
-        "payment-confirmation" : httpVueLoader("./components/payment-confirmation.vue")
+        commonNavbar: httpVueLoader("../web-common/components/navbar.vue"),
+        paymentConfirmation : httpVueLoader("./components/payment-confirmation.vue"),
+        paymentSuccess : httpVueLoader("./components/payment-success.vue")
       }
     })
         </script>
