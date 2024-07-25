@@ -185,7 +185,7 @@ class Payment extends MY_Controller
     function upload_receipt($p_id, $r_img)
     {
         $ts = 'r_'.strtotime(date('Y-m-d H:i:s')).'.jpg';
-        $this->base64_to_jpeg($r_img, "/var/www/html/platform-zalfa/uploads/receipts/".$ts);
+        $this->base64_to_jpeg($r_img, "/var/www/html/lms/uploads/receipts/".$ts);
 
         $this->f_payment->upload_receipt($p_id, $ts);
     }
