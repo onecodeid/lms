@@ -3,7 +3,7 @@
 // Report Fee / Komisi Per Admin
 //
 
-class One_sales_009 extends RPT_Controller
+class One_sales_009_piutang extends RPT_Controller
 {
     var $report_code;
 
@@ -28,7 +28,7 @@ class One_sales_009 extends RPT_Controller
 
         // Get data
         $this->load->model('report/r_report');
-        $r = $this->r_report->one_sales_009( $this->input->get('sdate'), $this->input->get('edate') );
+        $r = $this->r_report->one_sales_009_piutang( $this->input->get('sdate'), $this->input->get('edate') );
 
         if (isset($this->sys_input['out']))
         {
@@ -79,7 +79,7 @@ class One_sales_009 extends RPT_Controller
             $hy = $this->pdf->GetY();
             // $this->pdf->Image(base_url() . '/assets/images/logo-1-1.png', 0.8, 0.7, 3);
             $this->my_header($this, 
-                'Laporan Detail Penerimaan Kas', 
+                'Laporan Daftar Piutang', 
                 'Periode : ' . date('d/m/Y', strtotime($this->input->get('sdate'))) . ' - ' .  date('d/m/Y', strtotime($this->input->get('edate'))), 'L');
 
             
@@ -109,15 +109,15 @@ class One_sales_009 extends RPT_Controller
                 $this->pdf->Cell(1, 0.7, ($k+1), 'LB', 0, 'C', 1);
                 $this->pdf->Cell(2, 0.7, date('d-m-Y', strtotime($v['so_date'])), 'LB', 0, 'C', 1);
                 $this->pdf->Cell(2.5, 0.7, $v['so_number'], 'LB', 0, 'L', 1);
-                $this->pdf->Cell(5, 0.7, $v['customer_name'] . ' / ' . $cl_name, 'LB', 0, 'L', 1);
-                $this->pdf->Cell(2.5, 0.7, $v['admin_name'], 'LB', 0, 'L', 1);
+                $this->pdf->Cell(7.5, 0.7, $v['customer_name'], 'LB', 0, 'L', 1);
+                // $this->pdf->Cell(2.5, 0.7, $v['admin_name'], 'LB', 0, 'L', 1);
                 $this->pdf->Cell(9, 0.7, $v['item_name'], 'LB', 0, 'L', 1);
-                $this->pdf->Cell(2, 0.7, number_format($v['item_price']-$v['item_disc_total']), 'LB', 0, 'R', 1);
-                $this->pdf->Cell(1, 0.7, number_format($v['item_qty']), 'LB', 0, 'R', 1);
-                $this->pdf->Cell(3, 0.7, number_format($v['item_subtotal']), 'LBR', 0, 'R', 1);
+                $this->pdf->Cell(2, 0.7, number_format($v['invoice_total']), 'LB', 0, 'R', 1);
+                $this->pdf->Cell(2, 0.7, number_format($v['invoice_paid']), 'LB', 0, 'R', 1);
+                $this->pdf->Cell(2, 0.7, number_format($v['invoice_unpaid']), 'LBR', 0, 'R', 1);
                 $this->pdf->Ln(0.7);
 
-                $grand_total += $v['item_subtotal'];
+                $grand_total += $v['invoice_unpaid'];
             }
 
             $this->pdf->SetFillColor(222,222,222);
@@ -164,12 +164,12 @@ class One_sales_009 extends RPT_Controller
         $me->Cell(1, 1, 'NO' , 'LTBR', 0, 'C', 1);
         $me->Cell(2, 1, 'TANGGAL' , 'LTBR', 0, 'C', 1);
         $me->Cell(2.5, 1, 'NO ORDER' , 'LTBR', 0, 'C', 1);
-        $me->Cell(5, 1, 'NAMA SISWA' , 'LTBR', 0, 'C', 1);
-        $me->Cell(2.5, 1, 'ADMIN' , 'LTBR', 0, 'C', 1);
+        $me->Cell(7.5, 1, 'NAMA SISWA' , 'LTBR', 0, 'C', 1);
+        // $me->Cell(2.5, 1, 'ADMIN' , 'LTBR', 0, 'C', 1);
         $me->Cell(9, 1, 'NAMA KURSUS' , 'LTBR', 0, 'C', 1);
-        $me->Cell(2, 1, 'HARGA' , 'LTBR', 0, 'C', 1);
-        $me->Cell(1, 1, 'QTY' , 'LTBR', 0, 'C', 1);
-        $me->Cell(3, 1, 'SUBTOTAL' , 'LTBR', 0, 'C', 1);
+        $me->Cell(2, 1, 'TAGIHAN' , 'LTBR', 0, 'C', 1);
+        $me->Cell(2, 1, 'TERBAYAR' , 'LTBR', 0, 'C', 1);
+        $me->Cell(2, 1, 'SISA' , 'LTBR', 0, 'C', 1);
 
         $me->Ln(1);
     }

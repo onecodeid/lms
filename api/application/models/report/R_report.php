@@ -111,6 +111,13 @@ class R_report extends MY_Model
         return $r;
     }
 
+    // Report Detail Penjualan
+    function One_sales_009_piutang($sdate, $edate)
+    {
+        $r = $this->GetMultipleQueryResult("CALL `sp_r_sales_009_piutang`('{$sdate}', '{$edate}')", 2);
+        return $r;
+    }
+
     // Report Detail Penjualan Per Admin Per Jenjang
     function One_sales_010($uid, $sdate, $edate, $levelid)
     {

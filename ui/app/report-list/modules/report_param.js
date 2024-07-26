@@ -32,6 +32,7 @@ export default {
             'sales-006': false,
             'sales-008': false,
             'sales-009': false,
+            'sales-009-piutang': false,
             'sales-010': false,
             'sales-011': false,
             'master-001': false

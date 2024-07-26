@@ -38,6 +38,7 @@
         <report-param-sales-006 v-if="dialog['sales-006']"></report-param-sales-006>
         <report-param-sales-008 v-if="dialog['sales-008']"></report-param-sales-008>
         <report-param-sales-009 v-if="dialog['sales-009']"></report-param-sales-009>
+        <report-param-sales-009-piutang v-if="dialog['sales-009-piutang']"></report-param-sales-009-piutang>
         <report-param-sales-010 v-if="dialog['sales-010']"></report-param-sales-010>
         <report-param-sales-011 v-if="dialog['sales-011']"></report-param-sales-011>
         <report-param-master-001 v-if="dialog['master-001']"></report-param-master-001>
@@ -70,6 +71,7 @@ module.exports = {
         "report-param-sales-006" : httpVueLoader("./report-param-sales-006.vue?t="+t),
         "report-param-sales-008" : httpVueLoader("./report-param-sales-008.vue?t="+t),
         "report-param-sales-009" : httpVueLoader("./report-param-sales-009.vue?t="+t),
+        "report-param-sales-009-piutang" : httpVueLoader("./report-param-sales-009-piutang.vue?t="+t),
         "report-param-sales-010" : httpVueLoader("./report-param-sales-010.vue?t="+t),
         "report-param-sales-011" : httpVueLoader("./report-param-sales-011.vue?t="+t),
         "report-param-master-001" : httpVueLoader("./report-param-master-001.vue?t="+t)
