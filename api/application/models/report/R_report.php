@@ -173,9 +173,9 @@ class R_report extends MY_Model
     }
 
     // Report Laporan Customer
-    function One_master_001($uid, $provinceid = 0, $cityid = 0, $levelid = 0)
+    function One_master_001($uid, $provinceid = 0, $cityid = 0, $levelid = 0, $itemid = 0)
     {
-        $r = $this->GetMultipleQueryResult("CALL `sp_r_master_001`('{$uid}', '{$provinceid}', '{$cityid}', '{$levelid}')", 2);
+        $r = $this->GetMultipleQueryResult("CALL `sp_r_master_001`('{$uid}', '{$itemid}', '{$levelid}')", 2);
         return $r;
     }
 

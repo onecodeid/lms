@@ -70,9 +70,36 @@
                 </v-layout>
 
                 <v-layout row wrap mb-3>
+                    <v-flex xs12 mb-3>
+                        <v-autocomplete
+                            label="Semua Kursus"
+                            v-model="selected_item"
+                            :items="items"
+                            auto-select-first
+                            clearable
+                            item-text="M_ItemName"
+                            item-value="M_ItemID"
+                            placeholder="Pilih Kursus"
+                            hint="Kosongkan untuk memilih semua kursus"
+                            persistent-hint
+                            :readonly="!!selected_item"
+                            >
+                            <template
+                                slot="item"
+                                slot-scope="{ item }"
+                                >
+                                <v-list-tile-content>
+                                <v-list-tile-title v-text="item.M_ItemName"></v-list-tile-title>
+                                <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
+                                </v-list-tile-content>
+                            </template>
+
+                        </v-autocomplete>
+                    </v-flex>
+
                     <v-flex xs12>
                         <v-autocomplete
-                            label="Kota"
+                            label="Semua Kelas"
                             v-model="selected_customer_level"
                             :items="customer_levels"
                             auto-select-first
@@ -80,8 +107,8 @@
                             clearable
                             item-text="M_CustomerLevelName"
                             item-value="M_CustomerLevelID"
-                            placeholder="Pilih Level / Jenjang"
-                            hint="Kosongkan untuk memilih semua level"
+                            placeholder="Pilih Kelas"
+                            hint="Kosongkan untuk memilih semua kelas"
                             persistent-hint
                             >
                             <template
@@ -120,6 +147,7 @@ module.exports = {
     },
 
     computed : {
+        ...Vuex.mapState('report_param', ['items']),
         dialog : {
             get () { return this.$store.state.report_param.dialog['master-001'] },
             set (v) { this.$store.commit('report_param/set_dialog', ['master-001', v]) }
@@ -133,6 +161,7 @@ module.exports = {
             return ['province_id='+(this.selected_province?this.selected_province.M_ProvinceID:0), 
                     'city_id='+(this.selected_city?this.selected_city.M_CityID:0),
                     'level_id='+(this.selected_customer_level?this.selected_customer_level.M_CustomerLevelID:0),
+                    'item_id='+(this.selected_item??0),
                     'token='+this.$store.state.report_param.token].join('&')
         },
 
@@ -191,6 +220,13 @@ module.exports = {
             set (v) { 
                 this.$store.commit('report_param/set_selected_customer_level', v)
             }
+        },
+
+        selected_item : {
+            get () { return this.$store.state.report_param.selected_item },
+            set (v) { 
+                this.$store.commit('report_param/set_selected_item', v)
+            }
         }
     },
 
@@ -223,6 +259,7 @@ module.exports = {
     mounted () {
         this.$store.dispatch('report_param/search_province')
         this.$store.dispatch('report_param/search_customer_level')
+        this.$store.dispatch('report_param/search_item')
     }
 }
 </script>
