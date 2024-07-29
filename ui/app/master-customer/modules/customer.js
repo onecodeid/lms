@@ -31,7 +31,10 @@ export default {
         current_page: 1,
         report_url: '',
 
-        dialog_transfer: true
+        dialog_transfer: true,
+
+        items: [],
+        selected_item: null
     },
     mutations: {
         set_common(state, v) {
@@ -41,6 +44,12 @@ export default {
                 eval(`state.${name} = "${val}"`)
             else
                 eval(`state.${name} = ${val}`)
+        },
+
+        set_object(state, v) {
+            let name = v[0]
+            let val = v[1]
+            state[name] = val
         },
 
         update_search_error_message(state, msg) {
@@ -95,6 +104,7 @@ export default {
                 prm.city = context.state.selected_city ? context.state.selected_city.M_CityID : 0
                 prm.province = context.state.selected_province ? context.state.selected_province.M_ProvinceID : 0
                 prm.level = 0
+                prm.item = context.state.selected_item ?? 0
                 if (context.state.selected_level)
                     prm.level = context.state.selected_level.M_CustomerLevelID
                 let resp = await api.search(prm)
@@ -183,6 +193,26 @@ export default {
                 context.commit("set_common", ["search_city_status", 3])
                 context.commit("update_search_error_message", e.message)
             }
+        },
+
+        async search_item({state, commit, dispatch}) {
+            let prm = {
+                token : one_token(),
+                customer_level : 5,
+                search : ""
+            }
+
+            return dispatch("system/postme", {
+                url: "master/item/search_w_price",
+                prm: prm,
+                callback: function(d) {
+                    commit("set_object", ['items', d.records])
+                    return d
+                },
+                failback: function(e) {
+                    // context.commit('set_common', ['loading_city', false])
+                }
+            }, { root: true })
         }
     }
 }

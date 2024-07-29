@@ -4,9 +4,9 @@
 //
 //
 // Actions
-import register from "./modules/register.js";
+import register from "./modules/register.js?t=123";
 import system from "../assets/js/system.js";
-import payment2 from "../finance-payment-admin-list/modules/payment.js";
+import payment2 from "../finance-payment-admin-list/modules/payment.js?t=123";
 
 export const store = new Vuex.Store({
     state : {

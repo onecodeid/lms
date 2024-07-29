@@ -19,6 +19,7 @@ class Customer extends MY_Controller
         $r = $this->m_customer->search(['customer_name'=>'%'.(isset($this->sys_input['search'])?$this->sys_input['search']:'').'%', 
                                     'page'=>$this->sys_input['page'],
                                     'level'=>$this->sys_input['level'],
+                                    'item'=>isset($this->sys_input['item'])?$this->sys_input['item']:0,
                                     'city'=>$this->sys_input['city'],
                                     'province'=>$this->sys_input['province'],
                                     'user_id'=>isset($this->sys_input['user_id'])?$this->sys_input['user_id']:$this->sys_user['user_id']]);

@@ -62,7 +62,7 @@
                 </v-flex>
 
                 <v-flex xs2>
-                    &nbsp; 
+                    <v-select :items="items" item-value="M_ItemID" item-text="M_ItemName" v-model="selected_item" clearable dense hide-details solo></v-select>
                 </v-flex>
 
                 <v-flex xs2 class="text-xs-right" pl-3>
@@ -113,10 +113,14 @@
                     <td class="text-xs-left pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">{{ props.item.M_CustomerAddress }}, {{ props.item.address_kelurahan }}</td>
                     <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">{{ props.item.M_CityName }}</td>
                     <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">{{ props.item.M_ProvinceName }}</td>
-                    <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.M_CustomerLevelName }}<b/><br>{{duration(props.item.M_CustomerJoinDate)}}</td>
-                    <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">
+                    <!-- <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.M_CustomerLevelName }}<b/><br>{{duration(props.item.M_CustomerJoinDate)}}</td> -->
+                    
+                        <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.item_name }}</b></td>
+                    <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.M_CustomerLevelName }}</b></td>
+                    
+                        <!-- <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">
                         <div v-for="(r, i) in props.item.referrer" v-bind:key="i"><span v-show="i=='level'">—</span> {{ r }}</div>
-                    </td>
+                    </td> -->
                     <td class="text-xs-center pa-0" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">
                         <v-btn color="primary" class="btn-icon ma-0" small @click="edit(props.item)"><v-icon>create</v-icon></v-btn>
                         <v-btn color="red" dark class="btn-icon ma-0" small @click="del(props.item)"><v-icon>delete</v-icon></v-btn>
@@ -200,14 +204,14 @@ module.exports = {
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
                 {
-                    text: "LEVEL",
+                    text: "KURSUS",
                     align: "center",
                     sortable: false,
                     width: "10%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
                 {
-                    text: "REFERRER",
+                    text: "KELAS",
                     align: "center",
                     sortable: false,
                     width: "10%",
@@ -225,6 +229,8 @@ module.exports = {
     },
 
     computed : {
+        ...Vuex.mapState('customer', ['items']),
+
         customers () {
             return this.$store.state.customer.customers
         },
@@ -286,6 +292,11 @@ module.exports = {
 
         cities () {
             return this.$store.state.customer.cities
+        },
+
+        selected_item : {
+            get () { return this.$store.state.customer.selected_item },
+            set (v) { this.$store.commit('customer/set_object', ['selected_item', v]) }
         }
     },
 
@@ -452,6 +463,7 @@ module.exports = {
 
     mounted () {
         this.$store.dispatch('customer/search_province', {})
+        this.$store.dispatch('customer/search_item')
     },
 
     watch : {

@@ -22,13 +22,22 @@ class M_customer extends MY_Model
                 M_CustomerLevelCode, M_CustomerLevelName,
                 IFNULL(S_UserCustomerID, 0) user_customer_id, S_UserCustomerUsername user_customer_username,
                 M_CustomerPointQty point_qty, 
-                IFNULL(M_LeadSourceName, '') leadsource_name, IFNULL(M_LeadSourceColor, '') leadsource_color
+                IFNULL(M_LeadSourceName, '') leadsource_name, IFNULL(M_LeadSourceColor, '') leadsource_color,
+
+                M_ItemName item_name
+
                 FROM `{$this->table_name}`
                 JOIN s_user ON S_UserID = ?
                 JOIN s_usergroup ON S_UserS_UserGroupID = S_UserGroupID
                 JOIN m_customerlevel ON M_CustomerM_CustomerLevelID = M_CustomerLevelID
                     AND ((M_CustomerLevelID = ? AND ? <> 0) OR (? = 0))
                 JOIN m_customerpoint ON M_CustomerPointM_CustomerID = M_CustomerID
+
+                JOIN l_so ON L_SoM_CustomerID = M_CustomerID AND L_SoIsActive = 'Y' AND L_SoDate >= '2024-07-01'
+                JOIN l_sodetail ON L_SoDetailL_SoID = L_SoID AND L_SoISActive = 'Y'
+                JOIN m_item ON L_SoDetailM_ITemID = M_ItemID
+                    AND ((M_ItemID = ? AND ? <> 0) OR ? = 0)
+
                 LEFT JOIN m_kelurahan ON M_CustomerM_KelurahanID = M_KelurahanID
                 LEFT JOIN m_district ON M_KelurahanM_DistrictID = M_DistrictID
                 LEFT JOIN m_city ON m_districtM_CityID = M_CityID
@@ -41,8 +50,10 @@ class M_customer extends MY_Model
                 AND ((M_ProvinceID = ? AND ? <> 0) OR ? = 0)
                 AND ((M_CityID = ? AND ? <> 0) OR ? = 0)
                 AND ((M_CustomerUserID = ? AND S_UserGroupCode <> 'Z.GROUP.01' AND S_UserGroupCode <> 'Z.GROUP.02') OR S_UserGroupCode = 'Z.GROUP.01' OR S_UserGroupCode = 'Z.GROUP.02')
-                ORDER BY M_CustomerName ASC
-                LIMIT {$limit} OFFSET {$offset}", [$d['user_id'], $d['level'], $d['level'], $d['level'], $d['customer_name'], $d['customer_name'],
+                ORDER BY L_SoDate DESC, M_CustomerName ASC
+                LIMIT {$limit} OFFSET {$offset}", [$d['user_id'], $d['level'], $d['level'], $d['level'], 
+                                                    $d['item'], $d['item'], $d['item'],
+                                                    $d['customer_name'], $d['customer_name'],
                                                     $d['province'], $d['province'], $d['province'], $d['city'], $d['city'], $d['city'], $d['user_id']]);
         if ($r)
         {
@@ -69,9 +80,17 @@ class M_customer extends MY_Model
             FROM `{$this->table_name}`
             JOIN s_user ON S_UserID = ?
                 JOIN s_usergroup ON S_UserS_UserGroupID = S_UserGroupID
-            JOIN m_customerlevel ON M_CustomerM_CustomerLevelID = M_CustomerLevelID
-                    AND ((M_CustomerLevelID = ? AND ? <> 0) OR (? = 0))
+            
             JOIN m_customerpoint ON M_CustomerPointM_CustomerID = M_CustomerID
+
+            JOIN l_so ON L_SoM_CustomerID = M_CustomerID AND L_SoIsActive = 'Y' AND L_SoDate >= '2024-07-01'
+            JOIN l_sodetail ON L_SoDetailL_SoID = L_SoID AND L_SoISActive = 'Y'
+            JOIN m_item ON L_SoDetailM_ITemID = M_ItemID
+                AND ((M_ItemID = ? AND ? <> 0) OR ? = 0)
+
+            JOIN m_customerlevel ON L_SoDetailM_CustomerLevelID = M_CustomerLevelID
+                    AND ((M_CustomerLevelID = ? AND ? <> 0) OR (? = 0))
+
             LEFT JOIN m_kelurahan ON M_CustomerM_KelurahanID = M_KelurahanID
             LEFT JOIN m_district ON M_KelurahanM_DistrictID = M_DistrictID
             LEFT JOIN m_city ON m_districtM_CityID = M_CityID
@@ -81,8 +100,11 @@ class M_customer extends MY_Model
             AND `M_CustomerIsActive` = 'Y'
             AND ((M_ProvinceID = ? AND ? <> 0) OR ? = 0)
                 AND ((M_CityID = ? AND ? <> 0) OR ? = 0)
-                AND ((M_CustomerUserID = ? AND S_UserGroupCode <> 'Z.GROUP.01' AND S_UserGroupCode <> 'Z.GROUP.02') OR S_UserGroupCode = 'Z.GROUP.01' OR S_UserGroupCode = 'Z.GROUP.02')", [$d['user_id'], $d['level'], $d['level'], $d['level'], $d['customer_name'], $d['customer_name'],
-                                                    $d['province'], $d['province'], $d['province'], $d['city'], $d['city'], $d['city'], $d['user_id']]);
+                AND ((M_CustomerUserID = ? AND S_UserGroupCode <> 'Z.GROUP.01' AND S_UserGroupCode <> 'Z.GROUP.02') OR S_UserGroupCode = 'Z.GROUP.01' OR S_UserGroupCode = 'Z.GROUP.02')", 
+                    [$d['user_id'], $d['level'], $d['level'], $d['level'], 
+                        $d['item'], $d['item'], $d['item'],
+                        $d['customer_name'], $d['customer_name'],
+                        $d['province'], $d['province'], $d['province'], $d['city'], $d['city'], $d['city'], $d['user_id']]);
         if ($r)
         {
             $l['total'] = $r->row()->n;
