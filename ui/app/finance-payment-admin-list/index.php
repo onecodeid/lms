@@ -100,7 +100,7 @@ methods : {
    components: {
         "common-navbar" : httpVueLoader("../common/components/common-navbar.vue"),
         "common-toolbar" : httpVueLoader("../common/components/common-toolbar.vue"),
-        "finance-payment-admin-list" : httpVueLoader("./components/finance-payment-admin-list.vue"),
+        "finance-payment-admin-list" : httpVueLoader("./components/finance-payment-admin-list.vue?t=<?=date('YmdHis')?>"),
         "finance-payment-admin-show" : httpVueLoader("./components/finance-payment-admin-show.vue?t=<?=date('YmdHis')?>")
       }
     })

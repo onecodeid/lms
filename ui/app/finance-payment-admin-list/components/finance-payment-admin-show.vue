@@ -138,7 +138,7 @@
                 <v-card-actions>
                     <v-btn flat color="primary" @click="dialog=!dialog">Tutup</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" @click="confirm" :disabled="!btn_confirm_enable">Konfirmasi</v-btn>
+                    <v-btn color="primary" @click="confirm" :disabled="!btn_confirm_enable">Verifikasi</v-btn>
                     
                 </v-card-actions>
             </v-card>

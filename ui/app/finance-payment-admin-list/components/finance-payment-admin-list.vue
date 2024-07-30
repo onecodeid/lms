@@ -87,7 +87,7 @@
                         <v-btn color="orange" class="btn-icon ma-0 xs6" small @click="print_invoice(props.item)" v-if="btn_inv_show(props.item.M_OrderStatusCode)" dark v-show="props.item.M_OrderStatusCode == 'SO.Confirmed'">
                             <v-icon class="mr-2">print</v-icon> Inv</v-btn>
                         <v-btn color="primary" class="btn-icon ma-0" small @click="show(props.item)" v-show="props.item.M_OrderStatusCode == 'SO.Confirmed'">Lihat</v-btn>
-                        <v-btn color="deep-orange darken-4" class="btn-icon ma-0" dark small @click="show(props.item)" v-show="props.item.M_OrderStatusCode == 'IV.Paid'">Konfirmasi</v-btn>
+                        <v-btn color="deep-orange darken-4" class="btn-icon ma-0" dark small @click="show(props.item)" v-show="props.item.M_OrderStatusCode == 'IV.Paid'">Verifikasi</v-btn>
 
                         <v-btn color="primary" class="btn-icon ma-0" small @click="show(props.item)" v-show="['IV.Confirmed','WH.Processing','WH.Courier','WH.Sent'].indexOf(props.item.M_OrderStatusCode) > -1">Lihat</v-btn>
                         
