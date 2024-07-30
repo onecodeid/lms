@@ -111,8 +111,8 @@
                     <td class="text-xs-left pa-2" v-bind:class="[level_color(props.item.M_CustomerLevelCode), props.item.M_CustomerIsNew == 'Y'?'customer-new':'']" @click="select(props.item)">
                         <b>{{ props.item.M_CustomerName }}</b><br><v-icon small>smartphone</v-icon>{{props.item.M_CustomerPhone}}</td>
                     <td class="text-xs-left pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">{{ props.item.M_CustomerAddress }}, {{ props.item.address_kelurahan }}</td>
-                    <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">{{ props.item.M_CityName }}</td>
-                    <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">{{ props.item.M_ProvinceName }}</td>
+                    <!-- <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">{{ props.item.M_CityName }}</td>
+                    <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">{{ props.item.M_ProvinceName }}</td> -->
                     <!-- <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.M_CustomerLevelName }}<b/><br>{{duration(props.item.M_CustomerJoinDate)}}</td> -->
                     
                         <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.item_name }}</b></td>
@@ -179,7 +179,7 @@ module.exports = {
                     text: "NAMA",
                     align: "left",
                     sortable: false,
-                    width: "15%",
+                    width: "30%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
                 {
@@ -189,25 +189,25 @@ module.exports = {
                     width: "27%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
-                {
-                    text: "KOTA",
-                    align: "center",
-                    sortable: false,
-                    width: "10%",
-                    class: "pa-2 zalfa-bg-purple lighten-3 white--text"
-                },
-                {
-                    text: "PROPINSI",
-                    align: "center",
-                    sortable: false,
-                    width: "10%",
-                    class: "pa-2 zalfa-bg-purple lighten-3 white--text"
-                },
+                // {
+                //     text: "KOTA",
+                //     align: "center",
+                //     sortable: false,
+                //     width: "10%",
+                //     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
+                // },
+                // {
+                //     text: "PROPINSI",
+                //     align: "center",
+                //     sortable: false,
+                //     width: "10%",
+                //     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
+                // },
                 {
                     text: "KURSUS",
                     align: "center",
                     sortable: false,
-                    width: "10%",
+                    width: "15%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
                 {

@@ -13,8 +13,8 @@
                     <v-icon class="white--text" medium>arrow_back</v-icon>
                 </v-btn>
 
-                <h3 class="headline white--text pt-1" v-show="!edit">CUSTOMER BARU</h3>
-                <h3 class="headline white--text pt-1" v-show="edit">UBAH DATA CUSTOMER</h3>
+                <h3 class="headline white--text pt-1" v-show="!edit">SISWA BARU</h3>
+                <h3 class="headline white--text pt-1" v-show="edit">UBAH DATA SISWA</h3>
             </v-card-title>
             <v-card-text>
                 <v-layout row wrap>
@@ -258,7 +258,7 @@
                             </v-flex>
 
                             <v-flex xs12 mb-3>
-                                <v-card class="pa-1 cyan lighten-5" depressed>
+                                <!-- <v-card class="pa-1 cyan lighten-5" depressed>
                                     <v-card-title class="pt-2 px-2 pb-0">
                                         <h3>ORDER</h3>
                                     </v-card-title>
@@ -285,7 +285,7 @@
                                             </v-flex>
                                         </v-layout>
                                     </v-card-text>
-                                </v-card>
+                                </v-card> -->
                             </v-flex>
                             <v-flex xs12>
                                 <v-textarea
@@ -305,7 +305,7 @@
                         </v-layout>
 
                         <v-layout row wrap>
-                            <v-flex xs12 sm6 md6 pr-2>
+                            <!-- <v-flex xs12 sm6 md6 pr-2>
                                 <v-card class="pa-1 orange lighten-4" depressed>
                                     <v-card-title class="pt-2 px-2 pb-0">
                                         <h3>AKUN MP</h3>
@@ -338,7 +338,7 @@
                                         </v-text-field>
                                     </v-card-text>
                                 </v-card>
-                            </v-flex>
+                            </v-flex> -->
 
                             <v-flex xs12 sm6 md6>
                                 <div v-show="!edit">

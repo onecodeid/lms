@@ -91,9 +91,9 @@
 
             <v-layout row wrap>
                 <v-flex xs3 mt-3>
-                    <h4 :class="{'font-weight-light':!is_new}">Berat Item :</h4>
-                    <h3 :class="{'font-weight-light':!is_new}">{{ weight_subtotal }} KG</h3>
-                    <v-layout row wrap v-show="is_new">
+                    <!-- <h4 :class="{'font-weight-light':!is_new}">Berat Item :</h4>
+                    <h3 :class="{'font-weight-light':!is_new}">{{ weight_subtotal }} KG</h3> -->
+                    <!-- <v-layout row wrap v-show="is_new">
                         <v-flex xs5>
                             <v-text-field
                                 label="Berat Packing"
@@ -120,9 +120,9 @@
                             <v-divider class="dashed mt-1 mb-2"></v-divider>
                             <div>Kode Iklan : <b>{{ selected_order.so_ads_number }}</b> <br>No Pesanan MP : <b>{{ selected_order.so_mp_number }}</b></div>
                         </v-flex>
-                    </v-layout>
+                    </v-layout> -->
 
-                    <v-layout row wrap v-show="!is_new" class="mt-2">
+                    <!-- <v-layout row wrap v-show="!is_new" class="mt-2">
                         <v-flex xs5>
                             <h4 class="font-weight-light">Berat Packing</h4>
                             <h3 class="font-weight-light">{{weight_add}} KG</h3>
@@ -141,7 +141,7 @@
                         <v-flex xs12 mt-2 v-show="selected_order.so_ads_number!=''||selected_order.so_mp_number!=''">
                             Kode Iklan : <b>{{ selected_order.so_ads_number }}</b> <br>No Pesanan MP : <b>{{ selected_order.so_mp_number }}</b>
                         </v-flex>
-                    </v-layout>
+                    </v-layout> -->
                     
                 </v-flex>
 
@@ -158,7 +158,7 @@
                     <v-layout row wrap mt-2>
 
                         <v-flex xs12 v-show="!is_new">
-                            <v-layout row wrap class="mb-1">
+                            <v-layout row wrap class="mb-1 d-none">
                                 <v-flex xs3 offset-xs6 class="text-xs-right">
                                     Biaya Pengiriman
                                     <div class="caption">─ {{selected_expedition.M_ExpeditionName}}, {{selected_service.service}}</div>
