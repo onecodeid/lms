@@ -77,7 +77,7 @@
                     <td class="text-xs-left pa-2" @click="select(props.item)">
                         <div><b>{{ props.item.M_CustomerName }}</b> — <span class="grey--text">{{props.item.level_name}}, {{props.item.city_name}}</span></div>
                         <div class="purple--text" v-if="props.item.L_SoIsDS == 'Y'">— Dropship, {{ props.item.ds_customer_name }} - {{ props.item.ds_city_name}}</div></td>
-                    <td class="text-xs-center pa-2" @click="select(props.item)">{{ props.item.L_SoTotalQty }}</td>
+                    <!-- <td class="text-xs-center pa-2" @click="select(props.item)">{{ props.item.L_SoTotalQty }}</td> -->
                     
                     <td class="text-xs-right pa-2" @click="select(props.item)">{{ one_money(props.item.L_SoTotal) }}</td>
                     <td class="text-xs-right pa-2" @click="select(props.item)">{{ one_money(props.item.F_PaymentAmount) }}</td>
@@ -153,13 +153,13 @@ module.exports = {
                     width: "27.5%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
-                {
+                /*{
                     text: "QTY ITEM",
                     align: "center",
                     sortable: false,
                     width: "7.5%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
-                },
+                },*/
                 {
                     text: "TOTAL TAGIHAN",
                     align: "right",

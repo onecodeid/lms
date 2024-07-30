@@ -71,9 +71,9 @@
                         <div><b>{{ props.item.M_CustomerName }}</b> — <span class="grey--text">{{ props.item.level_name }}, {{ props.item.city_name }}</span></div>
                         <div><v-icon small>smartphone</v-icon> {{props.item.M_CustomerPhone}}</div>
                         <div class="purple--text" v-if="props.item.L_SoIsDS == 'Y'">— Dropship, {{ props.item.ds_customer_name }} - {{ props.item.ds_city_name}}</div></td>
-                    <td class="text-xs-left pa-2" @click="select(props.item)">{{ props.item.referrer_name }}</td>
-                    <td class="text-xs-center pa-2" @click="select(props.item)">{{ props.item.L_SoTotalUniqueQty }}</td>
-                    <td class="text-xs-right pa-2" @click="select(props.item)">{{ one_money(props.item.L_SoTotalWeight) }} gr</td>
+                    <!-- <td class="text-xs-left pa-2" @click="select(props.item)">{{ props.item.referrer_name }}</td> -->
+                    <!-- <td class="text-xs-center pa-2" @click="select(props.item)">{{ props.item.L_SoTotalUniqueQty }}</td> -->
+                    <!-- <td class="text-xs-right pa-2" @click="select(props.item)">{{ one_money(props.item.L_SoTotalWeight) }} gr</td> -->
                     <td class="text-xs-right pa-2" @click="select(props.item)"><b>{{ one_money(props.item.L_SoTotal) }}</b></td>
                     <td class="text-xs-center pa-1" @click="select(props.item)">
                         <!-- <v-btn :color="status_color(props.item.M_OrderStatusCode)" outline small ma-0 block>{{ props.item.M_OrderStatusName }}</v-btn></td> -->
@@ -153,30 +153,30 @@ module.exports = {
                     text: "NAMA CUSTOMER",
                     align: "left",
                     sortable: false,
-                    width: "26.5%",
+                    width: "49%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
-                {
-                    text: "REFERRER",
-                    align: "left",
-                    sortable: false,
-                    width: "7.5%",
-                    class: "pa-2 zalfa-bg-purple lighten-3 white--text"
-                },
-                {
-                    text: "U-QTY",
-                    align: "center",
-                    sortable: false,
-                    width: "7.5%",
-                    class: "pa-2 zalfa-bg-purple lighten-3 white--text"
-                },
-                {
-                    text: "BERAT",
-                    align: "right",
-                    sortable: false,
-                    width: "7.5%",
-                    class: "pa-2 zalfa-bg-purple lighten-3 white--text"
-                },
+                // {
+                //     text: "REFERRER",
+                //     align: "left",
+                //     sortable: false,
+                //     width: "7.5%",
+                //     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
+                // },
+                // {
+                //     text: "U-QTY",
+                //     align: "center",
+                //     sortable: false,
+                //     width: "7.5%",
+                //     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
+                // },
+                // {
+                //     text: "BERAT",
+                //     align: "right",
+                //     sortable: false,
+                //     width: "7.5%",
+                //     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
+                // },
                 {
                     text: "TOTAL BELANJA",
                     align: "right",

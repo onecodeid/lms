@@ -162,7 +162,7 @@ methods : {
         "common-toolbar" : httpVueLoader("../common/components/common-toolbar.vue"),
         "common-dialog-progress" : httpVueLoader("../common/components/common-dialog-progress.vue"),
         "common-dialog-warning" : httpVueLoader("../common/components/common-dialog-warning.vue"),
-        "sales-order-admin-list" : httpVueLoader("./components/sales-order-admin-list.vue"),
+        "sales-order-admin-list" : httpVueLoader("./components/sales-order-admin-list.vue?t=<?=date('YmdHis');?>"),
         "sales-order-admin-list-mobile" : httpVueLoader("./components/sales-order-admin-list-mobile.vue"),
         "sales-order-admin-show" : httpVueLoader("./components/sales-order-admin-show.vue?t=<?=date('YmdHis');?>"),
         "sales-order-admin-show-mobile" : httpVueLoader("./components/sales-order-admin-show-mobile.vue"),
