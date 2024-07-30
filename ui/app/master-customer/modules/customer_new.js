@@ -133,7 +133,7 @@ export default {
                             customer_auto: context.state.customer_auto,
                             customer_due_payment: context.state.customer_due_payment,
                             customer_level_id: context.state.selected_customer_level.M_CustomerLevelID,
-                            customer_kelurahan_id: context.state.selected_village.M_KelurahanID,
+                            customer_kelurahan_id: 0, // context.state.selected_village.M_KelurahanID,
                             customer_join_date: context.state.customer_join_date,
                             user_customer: context.state.user_customer,
                             user_customer_username: context.state.user_customer_username,

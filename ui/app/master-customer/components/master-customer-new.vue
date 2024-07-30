@@ -62,7 +62,7 @@
                                 ></common-datepicker-2>
                             </v-flex>
                             
-                            <v-flex xs12 sm6 md6 :class="{'pr-2':$vuetify.breakpoint.smAndUp}">
+                            <!-- <v-flex xs12 sm6 md6 :class="{'pr-2':$vuetify.breakpoint.smAndUp}">
                                 <v-autocomplete
                                     label="Propinsi"
                                     v-model="selected_province"
@@ -83,7 +83,6 @@
                                         >
                                         <v-list-tile-content>
                                         <v-list-tile-title v-text="item.M_ProvinceName"></v-list-tile-title>
-                                        <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                         </v-list-tile-content>
                                     </template>
 
@@ -109,7 +108,6 @@
                                         >
                                         <v-list-tile-content>
                                         <v-list-tile-title v-text="item.M_CityName"></v-list-tile-title>
-                                        <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                         </v-list-tile-content>
                                     </template>
 
@@ -135,7 +133,6 @@
                                         >
                                         <v-list-tile-content>
                                         <v-list-tile-title v-text="item.M_DistrictName"></v-list-tile-title>
-                                        <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                         </v-list-tile-content>
                                     </template>
 
@@ -161,23 +158,22 @@
                                         >
                                         <v-list-tile-content>
                                         <v-list-tile-title v-text="item.M_KelurahanName"></v-list-tile-title>
-                                        <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                         </v-list-tile-content>
                                     </template>
 
                                 </v-autocomplete>
-                            </v-flex>
+                            </v-flex> -->
                             
-                            <v-flex xs12 sm6 md6 :class="{'pr-2':$vuetify.breakpoint.smAndUp}">
+                            <!-- <v-flex xs12 sm6 md6 :class="{'pr-2':$vuetify.breakpoint.smAndUp}">
                                 <v-text-field
                                     label="Kode Pos"
                                     v-model="customer_postcode"
                                     placeholder=""
                                 ></v-text-field>
 
-                            </v-flex>
+                            </v-flex> -->
 
-                            <v-flex xs12 sm6 md6 class="d-sm-none">
+                            <v-flex xs12 sm6 md6 class="d-none d-sm-none">
                                 <!-- <v-text-field
                                     label="Telepon"
                                     v-model="customer_phone"

@@ -4,10 +4,10 @@
 //
 //
 // Actions
-import customer from "./modules/customer.js";
-import customer_new from "./modules/customer_new.js";
-import customer_transfer from "./modules/customer_transfer.js";
-import customer_filter from "./modules/customer_filter.js";
+import customer from "./modules/customer.js?t=123";
+import customer_new from "./modules/customer_new.js?t=123";
+import customer_transfer from "./modules/customer_transfer.js?t=123";
+import customer_filter from "./modules/customer_filter.js?t=123";
 import system from "../assets/js/system.js?t=234";
 
 export const store = new Vuex.Store({
