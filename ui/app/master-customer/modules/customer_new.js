@@ -52,6 +52,7 @@ export default {
         customer_auto: "N",
         customer_mps: [],
         customer_join_date: current_date(),
+        customer_end_date: null,
         customer_due_payment: 'N',
         current_date: current_date(),
 
@@ -143,6 +144,9 @@ export default {
                         
                 if (context.state.customer_dob)
                     prm.customer_dob = context.state.customer_dob
+
+                if (context.state.customer_end_date)
+                    prm.customer_end_date = context.state.customer_end_date
 
                 if (context.state.edit)
                     prm.customer_id = context.rootState.customer.selected_customer.M_CustomerID

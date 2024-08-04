@@ -4,11 +4,12 @@
 //
 //
 // Actions
-import customer from "./modules/customer.js?t=123";
-import customer_new from "./modules/customer_new.js?t=123";
-import customer_transfer from "./modules/customer_transfer.js?t=123";
-import customer_filter from "./modules/customer_filter.js?t=123";
-import system from "../assets/js/system.js?t=234";
+import customer from "./modules/customer.js?t=12s3";
+import customer_new from "./modules/customer_new.js?t=123s";
+import customer_transfer from "./modules/customer_transfer.js?t=12s3";
+import customer_filter from "./modules/customer_filter.js?t=12s3";
+import xdate from "../common/modules/date.js?t=1s2"
+import system from "../assets/js/system.js?t=2s34";
 
 export const store = new Vuex.Store({
     state: {
@@ -36,6 +37,7 @@ export const store = new Vuex.Store({
         customer_new: customer_new,
         customer_transfer: customer_transfer,
         customer_filter: customer_filter,
+        xdate: xdate,
         system: system
     }
 });

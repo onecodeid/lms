@@ -71,6 +71,9 @@ class M_customer extends MY_Model
 
                 $q = $this->db->query("SELECT fn_master_customer_note(?) as x", [$v['M_CustomerID']])->row();
                 $r[$k]['customer_note'] = json_decode($q->x);
+
+                $r[$k]['customer_join_date_formatted'] = date('d/m/Y', strtotime($v['M_CustomerJoinDate']));
+                $r[$k]['customer_end_date_formatted'] = date('d/m/Y', strtotime($v['M_CustomerEndDate']));
             }
             $l['records'] = $r;
         }
@@ -131,6 +134,7 @@ class M_customer extends MY_Model
                     ->set('M_CustomerM_CustomerLevelID', $d['customer_level_id'])
                     ->set('M_CustomerM_KelurahanID', $d['customer_kelurahan_id'])
                     ->set('M_CustomerJoinDate', isset($d['customer_join_date'])?date('Y-m-d', strtotime($d['customer_join_date'])):date('Y-m-d'))
+                    ->set('M_CustomerEndDate', isset($d['customer_end_date'])?date('Y-m-d', strtotime($d['customer_end_date'])):date('Y-m-d'))
                     ->set('M_CustomerUserID', $d['user_id'])
                     ->insert( $this->table_name );
         $id = $this->db->insert_id();
@@ -178,6 +182,7 @@ class M_customer extends MY_Model
                     ->set('M_CustomerM_CustomerLevelID', $d['customer_level_id'])
                     ->set('M_CustomerM_KelurahanID', $d['customer_kelurahan_id'])
                     ->set('M_CustomerJoinDate', isset($d['customer_join_date'])?date('Y-m-d', strtotime($d['customer_join_date'])):date('Y-m-d'))
+                    ->set('M_CustomerEndDate', isset($d['customer_end_date'])?date('Y-m-d', strtotime($d['customer_end_date'])):date('Y-m-d'))
                     ->where('M_CustomerID', $d['customer_id'])
                     ->update( $this->table_name );
         if ($r)

@@ -8,6 +8,7 @@ DECLARE l INTEGER;
 DECLARE i INTEGER DEFAULT 0;
 DECLARE sch_id INTEGER;
 DECLARE sch_day INTEGER;
+DECLARE sch_days VARCHAR(255);
 DECLARE sch_time VARCHAR(10);
 DECLARE sch_capacity INTEGER;
 
@@ -44,12 +45,13 @@ WHILE i < l DO
     SET sch_day = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.day'));
     SET sch_time = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.time'));
     SET sch_capacity = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.capacity'));
+	SET sch_days = JSON_UNQUOTE(JSON_EXTRACT(tmp, '$.days'));
 	
 	IF sch_id = 0 THEN
-		INSERt INTO m_schedule(M_ScheduleM_ItemID, M_ScheduleM_DayID, M_ScheduleTime, M_ScheduleCapacity)
-		SELECT item_id, sch_day, sch_time, sch_capacity;
+		INSERt INTO m_schedule(M_ScheduleM_ItemID, M_ScheduleM_DayID, M_ScheduleDays, M_ScheduleTime, M_ScheduleCapacity)
+		SELECT item_id, sch_day, sch_days, sch_time, sch_capacity;
 	ELSE
-		UPDATE m_schedule SET M_ScheduleM_DayID = sch_day, M_ScheduleTime = sch_time, M_ScheduleCapacity = sch_capacity, M_ScheduleIsActive = 'Y'
+		UPDATE m_schedule SET M_ScheduleM_DayID = sch_day, M_ScheduleDays = sch_days, M_ScheduleTime = sch_time, M_ScheduleCapacity = sch_capacity, M_ScheduleIsActive = 'Y'
 		WHERE M_ScheduleID = sch_id;
 	ENd IF;
 	

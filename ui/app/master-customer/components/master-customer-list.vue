@@ -117,6 +117,9 @@
                     
                         <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.item_name }}</b></td>
                     <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.M_CustomerLevelName }}</b></td>
+
+                    <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.customer_join_date_formatted }}</b></td>
+                    <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)"><b>{{ props.item.customer_end_date_formatted }}</b></td>
                     
                         <!-- <td class="text-xs-center pa-2" v-bind:class="level_color(props.item.M_CustomerLevelCode)" @click="select(props.item)">
                         <div v-for="(r, i) in props.item.referrer" v-bind:key="i"><span v-show="i=='level'">—</span> {{ r }}</div>
@@ -179,14 +182,14 @@ module.exports = {
                     text: "NAMA",
                     align: "left",
                     sortable: false,
-                    width: "30%",
+                    width: "20%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
                 {
                     text: "ALAMAT",
                     align: "center",
                     sortable: false,
-                    width: "27%",
+                    width: "21%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
                 // {
@@ -215,6 +218,20 @@ module.exports = {
                     align: "center",
                     sortable: false,
                     width: "10%",
+                    class: "pa-2 zalfa-bg-purple lighten-3 white--text"
+                },
+                {
+                    text: "TANGGAL MULAI",
+                    align: "center",
+                    sortable: false,
+                    width: "8%",
+                    class: "pa-2 zalfa-bg-purple lighten-3 white--text"
+                },
+                {
+                    text: "TANGGAL SELESAI",
+                    align: "center",
+                    sortable: false,
+                    width: "8%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
                 },
                 {
@@ -316,6 +333,7 @@ module.exports = {
             this.$store.commit('customer_new/set_common', ['customer_auto', 'N'])
             this.$store.commit('customer_new/set_common', ['customer_due_payment', 'N'])
             this.$store.commit('customer_new/set_common', ['customer_join_date', this.$store.state.customer_new.current_date])
+            this.$store.commit('customer_new/set_common', ['customer_end_date', null])
             this.$store.commit('customer_new/set_customer_mps', [])
             this.$store.commit('customer_new/set_common', ['user_customer', 'N'])
             this.$store.commit('customer_new/set_common', ['user_customer_username', ''])
@@ -346,6 +364,7 @@ module.exports = {
             this.$store.commit('customer_new/set_common', ['customer_auto', sc.M_CustomerAutoAccept?sc.M_CustomerAutoAccept:'N'])
             this.$store.commit('customer_new/set_common', ['customer_due_payment', sc.M_CustomerDuePayment?sc.M_CustomerDuePayment:'N'])
             this.$store.commit('customer_new/set_common', ['customer_join_date', sc.M_CustomerJoinDate])
+            this.$store.commit('customer_new/set_common', ['customer_end_date', sc.M_CustomerEndDate])
             this.$store.commit('customer_new/set_customer_mps', sc.customer_mps)
 
             // USER

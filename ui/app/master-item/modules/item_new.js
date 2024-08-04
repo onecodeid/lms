@@ -41,6 +41,9 @@ export default {
         scheduleDefault: { id:0, day:0, time:'00:00', capacity:0 },
         days: [],
 
+        v2Schedules: [],
+        v2ScheduleDefault: { id:0, days:null, capacity:0 },
+
         sdate: '',
         edate: '',
 
@@ -145,7 +148,8 @@ export default {
                             item_publish: context.state.item_publish,
                             prices: JSON.stringify(prices),
                             fees: JSON.stringify(fees),
-                            schedules: JSON.stringify(context.state.schedules)
+                            schedules: JSON.stringify(context.state.schedules),
+                            v2schedules: JSON.stringify(context.state.v2Schedules)
                         }
 
                 if (context.state.edit)

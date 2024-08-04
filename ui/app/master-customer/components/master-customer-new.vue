@@ -215,7 +215,7 @@
                                 ></v-text-field>
                             </v-flex>
                             <v-flex xs4>
-                                <common-datepicker
+                                <!-- <common-datepicker
                                     label="Tanggal Bergabung"
                                     :date="customer_join_date"
                                     data="0"
@@ -225,7 +225,8 @@
                                     :details="true"
                                     v-if="dialog"
                                     :solo="false"
-                                ></common-datepicker>
+                                ></common-datepicker> -->
+                                &nbsp;
                             </v-flex>
 
                         </v-layout>
@@ -243,45 +244,40 @@
                                 >
                                 </v-select>
                             </v-flex>
+                            <v-flex xs6>&nbsp;</v-flex>
 
-                            <v-flex xs12 sm6 md6 :class="{'pr-2':$vuetify.breakpoint.smAndUp}">
-                                <!-- <v-checkbox 
-                                    label="Terima Order Otomatis"
-                                    v-model="customer_auto"
-                                    true-value="Y"
-                                    false-value="N"
-                                    reverse></v-checkbox> -->
+                            <v-flex xs12 sm6 md4 :class="{'pr-2':$vuetify.breakpoint.smAndUp}">
+                                <v-text-field @click="openDate('j')" :value="customer_join_date" readonly label="Tanggal Mulai Kursus"></v-text-field>
+                                <!-- <common-datepicker
+                                    label="Tanggal Mulai Kursus"
+                                    :date="customer_join_date"
+                                    data="0"
+                                    @change="change_join_date"
+                                    classs="ml-1"
+                                    hints=""
+                                    :details="true"
+                                    v-if="dialog"
+                                    :solo="false"
+                                ></common-datepicker> -->
+                            </v-flex>
+
+                            <v-flex xs12 sm6 md4 :class="{'pr-2':$vuetify.breakpoint.smAndUp}">
+                                <v-text-field @click="openDate('e')" :value="customer_end_date" readonly label="Tanggal Selesai Kursus"></v-text-field>
+                                <!-- <common-datepicker
+                                    label="Tanggal Selesai Kursus"
+                                    :date="customer_end_date"
+                                    data="0"
+                                    @change="change_end_date"
+                                    classs="ml-1"
+                                    hints=""
+                                    :details="true"
+                                    v-if="dialog"
+                                    :solo="false"
+                                ></common-datepicker> -->
                             </v-flex>
 
                             <v-flex xs12 mb-3>
-                                <!-- <v-card class="pa-1 cyan lighten-5" depressed>
-                                    <v-card-title class="pt-2 px-2 pb-0">
-                                        <h3>ORDER</h3>
-                                    </v-card-title>
-                                    <v-card-text class="pa-2">
-                                        <v-divider class="mb-0"></v-divider>
-                                        <v-layout row wrap>
-                                            <v-flex xs12>
-                                                <v-checkbox 
-                                                label="Terima Order Otomatis"
-                                                v-model="customer_auto"
-                                                true-value="Y"
-                                                false-value="N"
-                                                color="indigo"
-                                                reverse hide-details class="mt-2"></v-checkbox>
-                                            </v-flex>
-                                            <v-flex xs12>
-                                                <v-checkbox 
-                                                label="Pembayaran Tempo"
-                                                v-model="customer_due_payment"
-                                                true-value="Y"
-                                                false-value="N"
-                                                color="red darken-3"
-                                                reverse ></v-checkbox>
-                                            </v-flex>
-                                        </v-layout>
-                                    </v-card-text>
-                                </v-card> -->
+                                
                             </v-flex>
                             <v-flex xs12>
                                 <v-textarea
@@ -436,14 +432,12 @@
                 <v-btn color="primary" flat @click="dialog=!dialog">Batal</v-btn>                
                 <v-spacer></v-spacer>
                 <v-btn color="primary" @click="save" 
-                    :disabled="error_password || 
-                                error_password_confirm ||
-                                !email_validate ||
-                                customer_name == '' ||
+                    :disabled="customer_name == '' ||
                                 customer_address.length<10">Simpan</v-btn>                
             </v-card-actions>
         </v-card>
         <customer-mp></customer-mp>
+        <datex @change="setDate"></datex>
     </v-dialog>
 </template>
 
@@ -452,12 +446,13 @@ module.exports = {
     components : {
         'customer-mp' : httpVueLoader('./master-customer-mp.vue'),
         'common-datepicker' : httpVueLoader('../../common/components/common-datepicker.vue'),
-        'common-datepicker-2' : httpVueLoader('../../common/components/common-datepicker-null.vue')
+        'common-datepicker-2' : httpVueLoader('../../common/components/common-datepicker-null.vue'),
+        datex: httpVueLoader("../../common/components/common-date-dialog-x.vue")
     },
 
     data () {
         return {
-            
+            whichDate: 'j'
         }
     },
 
@@ -546,6 +541,10 @@ module.exports = {
             get () { return this.$store.state.customer_new.customer_join_date },
             set (v) { this.$store.commit('customer_new/set_common', ['customer_join_date', v]) }
         },
+
+        customer_end_date : {
+            get () { return this.$store.state.customer_new.customer_end_date },
+            set (v) { this.$store.commit('customer_new/set_object', ['customer_end_date', v]) } },
 
         customer_mps () {
             return this.$store.state.customer_new.customer_mps
@@ -727,8 +726,33 @@ module.exports = {
             this.customer_join_date = x.new_date
         },
 
+        change_end_date(x) {
+            this.customer_end_date = x.new_date
+        },
+
         change_dob(x) {
             this.customer_dob = x.new_date
+        },
+
+        openDate(x) {
+            // if (!this.enabled) return false
+            if (!!x) this.whichDate = x
+
+            let __c = function (x, a, b) { x.$store.commit("xdate/SET_OBJECT", [a, b]) }
+            __c(this, "dateXDialog", true)
+        },
+
+        setDate(x) {
+            
+            if (this.whichDate == 'j')
+                this.customer_join_date = x
+
+            if (this.whichDate == 'e')
+                this.customer_end_date = x
+            // if (!!this.whichDate.match(/(r)[0-9]+/)) {
+            //     let i = this.whichDate.replace(/(r)/, "")
+            //     this.setRevisionData(i, "rev_date", x)
+            // }
         }
     },
 

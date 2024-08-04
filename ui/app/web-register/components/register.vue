@@ -109,10 +109,12 @@
                                             item-value="schedule_id" item-text="day_name"
                                             v-model="selected_schedule" solo>
                                             <template slot="item" slot-scope="data">
-                                                {{ data.item.day_name }} <span class="font-weight-light mx-2">jam</span> {{ data.item.schedule_time }}
+                                                {{ data.item.schedule_days.map(sch=>sch.day_name).join(", ") }}
+                                                <!-- {{ data.item.day_name }} <span class="font-weight-light mx-2">jam</span> {{ data.item.schedule_time }} -->
                                             </template>
                                             <template slot="selection" slot-scope="data">
-                                                {{ data.item.day_name }} <span class="font-weight-light mx-2">jam</span> {{ data.item.schedule_time }}
+                                                {{ data.item.schedule_days.map(sch=>sch.day_name).join(", ") }}
+                                                <!-- {{ data.item.day_name }} <span class="font-weight-light mx-2">jam</span> {{ data.item.schedule_time }} -->
                                             </template>
                                         </v-select>
                                     </v-col>

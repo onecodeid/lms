@@ -167,11 +167,45 @@
                         <v-layout row wrap>
                             <v-flex xs12 class="d-flex">
                                 <h3 class="title mt-4">Jadwal</h3><v-spacer></v-spacer>
+                                <v-btn @click="v2ScheduleAdd">+</v-btn>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-layout row wrap v-for="(sch, n) in v2Schedules" :key="n" class="pb-2">
+                                    <v-flex xs8 pr-2>
+                                        <v-select
+                                            solo
+                                            hide-details
+                                            class=""
+                                            :items="days" item-value="day_id" item-text="day_name"
+                                            @change="changeV2SchValue(n, 'days', $event)"
+                                            multiple chips return-object
+                                            :value="sch.days"
+                                        ></v-select>
+                                    </v-flex>
+                                    <v-flex xs4>
+                                        <v-text-field
+                                            solo
+                                            hide-details
+                                            class=""
+                                            :value="sch.capacity"
+                                            reverse
+                                            suffix="Kapasitas"
+                                            @change="changeV2SchValue(n, 'capacity', $event)"
+                                        ></v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                            </v-flex>
+                        </v-layout>
+
+                        <v-layout row wrap v-if="false">
+                            <v-flex xs12 class="d-flex">
+                                <h3 class="title mt-4">Jadwal</h3><v-spacer></v-spacer>
                                 <v-btn @click="scheduleAdd">+</v-btn>
                             </v-flex>
                             <v-flex xs12>
                                 <v-layout row wrap v-for="(sch, n) in schedules" :key="n" class="pb-2">
                                     <v-flex xs4>
+                                        abc
                                         <v-select
                                             solo
                                             hide-details
@@ -322,28 +356,7 @@ module.exports = {
                     sortable: false,
                     width: "14%",
                     class: "pa-2 zalfa-bg-purple lighten-3 white--text"
-                },
-                // {
-                //     text: "KOMISI",
-                //     align: "center",
-                //     sortable: false,
-                //     width: "14%",
-                //     class: "pa-2 zalfa-bg-cyan lighten-3 white--text"
-                // },
-                // {
-                //     text: "POIN",
-                //     align: "center",
-                //     sortable: false,
-                //     width: "14%",
-                //     class: "pa-2 zalfa-bg-cyan lighten-3 white--text"
-                // },
-                // {
-                //     text: "REWARD",
-                //     align: "center",
-                //     sortable: false,
-                //     width: "14%",
-                //     class: "pa-2 zalfa-bg-cyan lighten-3 white--text"
-                // }
+                }
             ],
 
             imageName: '',
@@ -357,6 +370,8 @@ module.exports = {
             edit: s => s.item_new.edit,
             schedules: s => s.item_new.schedules,
             scheduleDefault: s => s.item_new.scheduleDefault,
+            v2Schedules: s => s.item_new.v2Schedules,
+            v2ScheduleDefault: s => s.item_new.v2ScheduleDefault,
             days: s => s.item_new.days
         }),
 
@@ -554,6 +569,20 @@ module.exports = {
             schs[x][y] = z
 
             this.$store.commit('item_new/set_object', ['schedules', schs])
+        },
+
+        v2ScheduleAdd() {
+            let schs = structuredClone(this.v2Schedules)
+            schs.push(structuredClone(this.v2ScheduleDefault))
+
+            this.$store.commit('item_new/set_object', ['v2Schedules', schs])
+        },
+
+        changeV2SchValue(x, y, z) {
+            let schs = structuredClone(this.v2Schedules)
+            schs[x][y] = z
+
+            this.$store.commit('item_new/set_object', ['v2Schedules', schs])
         }
     },
 
