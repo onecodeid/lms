@@ -26,10 +26,10 @@
                                     
                                     </v-col><v-col cols="4">&nbsp;</v-col>
 
-                                    <v-col cols="6" class="pr-2">
+                                    <!-- <v-col cols="6" class="pr-2">
                                         <v-text-field name="payment_amount" label="Nominal Pembayaran" id="payment_amount" v-model="paymentAmount"
                                             required prefix="Rp" :disabled="!valid"></v-text-field>
-                                    </v-col>
+                                    </v-col> -->
 
                                     <v-col cols="3">
                                         <v-text-field name="payment_date" label="Tanggal Pembayaran" id="payment_code" v-model="paymentDate"
@@ -259,7 +259,7 @@ module.exports = {
                     this.valid = false
                 } else {
                     let y = x.records[0]
-                    this.__c("invoiceId", y.L_InvoiceID), this.__c("invoiceTotal", y.L_SoTotal)
+                    this.__c("invoiceId", y.L_InvoiceID), this.__c("invoiceTotal", y.L_SoTotal), this.__c("paymentAmount", y.L_SoTotal)
 
                     this.valid = true
                 }
