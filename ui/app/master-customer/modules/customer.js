@@ -34,7 +34,10 @@ export default {
         dialog_transfer: true,
 
         items: [],
-        selected_item: null
+        selected_item: null,
+
+        sdate: "2024-06-01", //new Date().toISOString().substr(0, 10),
+        edate: new Date().toISOString().substr(0, 10)
     },
     mutations: {
         set_common(state, v) {
@@ -101,6 +104,8 @@ export default {
                 prm.token = one_token()
                 prm.page = context.state.current_page
                 prm.search = context.state.search
+                prm.sdate = context.state.sdate
+                prm.edate = context.state.edate
                 prm.city = context.state.selected_city ? context.state.selected_city.M_CityID : 0
                 prm.province = context.state.selected_province ? context.state.selected_province.M_ProvinceID : 0
                 prm.level = 0

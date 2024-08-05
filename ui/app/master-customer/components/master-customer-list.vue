@@ -7,7 +7,7 @@
                 </v-flex>
 
                 <v-flex xs2 pr-2>
-                    <v-autocomplete
+                    <!-- <v-autocomplete
                             label="Propinsi"
                             v-model="selected_province"
                             :items="provinces"
@@ -26,15 +26,14 @@
                                 >
                                 <v-list-tile-content>
                                 <v-list-tile-title v-text="item.M_ProvinceName"></v-list-tile-title>
-                                <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                 </v-list-tile-content>
                             </template>
 
-                        </v-autocomplete>
+                        </v-autocomplete> -->
                 </v-flex>
 
-                <v-flex xs2 pr-2>
-                    <v-autocomplete
+                <v-flex xs1>
+                    <!-- <v-autocomplete
                             label="Kota"
                             v-model="selected_city"
                             :items="cities"
@@ -54,15 +53,39 @@
                                 >
                                 <v-list-tile-content>
                                 <v-list-tile-title v-text="item.M_CityName"></v-list-tile-title>
-                                <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                 </v-list-tile-content>
                             </template>
 
-                        </v-autocomplete>
+                        </v-autocomplete> -->
                 </v-flex>
 
-                <v-flex xs2>
-                    <v-select :items="items" item-value="M_ItemID" item-text="M_ItemName" v-model="selected_item" clearable dense hide-details solo></v-select>
+                <v-flex xs3>
+                    <v-layout>
+                        <v-flex xs6 class="text-right">
+                            <common-datepicker
+                                label="Dari Tanggal"
+                                :date="sdate"
+                                data="0"
+                                @change="change_sdate"
+                                classs="mt-0 ml-5"
+                                hints="Dari Tanggal"
+                                :details="true"
+                            ></common-datepicker>
+                        </v-flex>
+                        <v-flex xs6>
+                            <common-datepicker
+                                label="Sampai Tanggal"
+                                :date="edate"
+                                data="0"
+                                @change="change_edate"
+                                classs="mt-0 ml-1"
+                                hints="Sampai Tanggal"
+                                :details="true"
+                            ></common-datepicker>
+                        </v-flex>
+                    </v-layout>
+                    
+                    <!-- <v-select :items="items" item-value="M_ItemID" item-text="M_ItemName" v-model="selected_item" clearable dense hide-details solo></v-select> -->
                 </v-flex>
 
                 <v-flex xs2 class="text-xs-right" pl-3>
@@ -165,7 +188,8 @@
 <script>
 module.exports = {
     components : {
-        "common-dialog-delete" : httpVueLoader("../../common/components/common-dialog-delete.vue")
+        "common-dialog-delete" : httpVueLoader("../../common/components/common-dialog-delete.vue"),
+        'common-datepicker' : httpVueLoader('../../common/components/common-datepicker.vue')
     },
 
     data () {
@@ -314,6 +338,16 @@ module.exports = {
         selected_item : {
             get () { return this.$store.state.customer.selected_item },
             set (v) { this.$store.commit('customer/set_object', ['selected_item', v]) }
+        },
+
+        sdate : {
+            get () { return this.$store.state.customer.sdate },
+            set (v) { this.$store.commit('customer/set_object', ['sdate', v]) }
+        },
+
+        edate : {
+            get () { return this.$store.state.customer.edate },
+            set (v) { this.$store.commit('customer/set_object', ['edate', v]) }
         }
     },
 
@@ -477,6 +511,16 @@ module.exports = {
             this.$store.commit('customer_transfer/set_object', ['customers', []])
             this.$store.commit('customer_transfer/set_object', ['transfers', []])
             this.$store.commit('customer_transfer/set_common', ['dialog_transfer', true])
+        },
+
+        change_edate(x) {
+            this.edate = x.new_date
+            this.search()
+        },
+
+        change_sdate(x) {
+            this.sdate = x.new_date
+            this.search()
         }
     },
 

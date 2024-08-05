@@ -17,6 +17,8 @@ class Customer extends MY_Controller
     function search()
     {
         $r = $this->m_customer->search(['customer_name'=>'%'.(isset($this->sys_input['search'])?$this->sys_input['search']:'').'%', 
+                                    'sdate' => date('Y-m-d 00:00:00', strtotime($this->sys_input['sdate'])),
+                                    'edate' => date('Y-m-d 23:59:59', strtotime($this->sys_input['edate'])),
                                     'page'=>$this->sys_input['page'],
                                     'level'=>$this->sys_input['level'],
                                     'item'=>isset($this->sys_input['item'])?$this->sys_input['item']:0,

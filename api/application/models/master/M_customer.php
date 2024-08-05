@@ -50,11 +50,12 @@ class M_customer extends MY_Model
                 AND ((M_ProvinceID = ? AND ? <> 0) OR ? = 0)
                 AND ((M_CityID = ? AND ? <> 0) OR ? = 0)
                 AND ((M_CustomerUserID = ? AND S_UserGroupCode <> 'Z.GROUP.01' AND S_UserGroupCode <> 'Z.GROUP.02') OR S_UserGroupCode = 'Z.GROUP.01' OR S_UserGroupCode = 'Z.GROUP.02')
+                AND M_CustomerJoinDate BETWEEN ? AND ?
                 ORDER BY L_SoDate DESC, M_CustomerName ASC
                 LIMIT {$limit} OFFSET {$offset}", [$d['user_id'], $d['level'], $d['level'], $d['level'], 
                                                     $d['item'], $d['item'], $d['item'],
                                                     $d['customer_name'], $d['customer_name'],
-                                                    $d['province'], $d['province'], $d['province'], $d['city'], $d['city'], $d['city'], $d['user_id']]);
+                                                    $d['province'], $d['province'], $d['province'], $d['city'], $d['city'], $d['city'], $d['user_id'], $d['sdate'], $d['edate']]);
         if ($r)
         {
             $r = $r->result_array();
@@ -103,11 +104,12 @@ class M_customer extends MY_Model
             AND `M_CustomerIsActive` = 'Y'
             AND ((M_ProvinceID = ? AND ? <> 0) OR ? = 0)
                 AND ((M_CityID = ? AND ? <> 0) OR ? = 0)
-                AND ((M_CustomerUserID = ? AND S_UserGroupCode <> 'Z.GROUP.01' AND S_UserGroupCode <> 'Z.GROUP.02') OR S_UserGroupCode = 'Z.GROUP.01' OR S_UserGroupCode = 'Z.GROUP.02')", 
+                AND ((M_CustomerUserID = ? AND S_UserGroupCode <> 'Z.GROUP.01' AND S_UserGroupCode <> 'Z.GROUP.02') OR S_UserGroupCode = 'Z.GROUP.01' OR S_UserGroupCode = 'Z.GROUP.02')
+                AND M_CustomerJoinDate BETWEEN ? AND ?", 
                     [$d['user_id'], $d['level'], $d['level'], $d['level'], 
                         $d['item'], $d['item'], $d['item'],
                         $d['customer_name'], $d['customer_name'],
-                        $d['province'], $d['province'], $d['province'], $d['city'], $d['city'], $d['city'], $d['user_id']]);
+                        $d['province'], $d['province'], $d['province'], $d['city'], $d['city'], $d['city'], $d['user_id'], $d['sdate'], $d['edate']]);
         if ($r)
         {
             $l['total'] = $r->row()->n;
