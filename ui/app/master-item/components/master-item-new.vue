@@ -170,8 +170,8 @@
                                 <v-btn @click="v2ScheduleAdd">+</v-btn>
                             </v-flex>
                             <v-flex xs12>
-                                <v-layout row wrap v-for="(sch, n) in v2Schedules" :key="n" class="pb-2">
-                                    <v-flex xs8 pr-2>
+                                <v-layout row wrap v-for="(sch, n) in v2Schedules" :key="n" class="pb-2 mb-2">
+                                    <v-flex xs6 pr-1>
                                         <v-select
                                             solo
                                             hide-details
@@ -182,7 +182,20 @@
                                             :value="sch.days"
                                         ></v-select>
                                     </v-flex>
-                                    <v-flex xs4>
+
+                                    <v-flex xs3 class="px-1 mb-1">
+                                        <v-text-field
+                                            solo
+                                            hide-details
+                                            class=""
+                                            :value="sch.time"
+                                            reverse
+                                            suffix="Jam"
+                                            @change="changeV2SchValue(n, 'time', $event)"
+                                        ></v-text-field>
+                                    </v-flex>
+
+                                    <v-flex xs3>
                                         <v-text-field
                                             solo
                                             hide-details
@@ -191,6 +204,17 @@
                                             reverse
                                             suffix="Kapasitas"
                                             @change="changeV2SchValue(n, 'capacity', $event)"
+                                        ></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs6 class="offset-xs6 px-1">
+                                        <v-text-field
+                                            solo
+                                            hide-details
+                                            class=""
+                                            :value="sch.sdate"
+                                            reverse
+                                            suffix="Tgl Mulai"
+                                            @change="changeV2SchValue(n, 'sdate', $event)"
                                         ></v-text-field>
                                     </v-flex>
                                 </v-layout>

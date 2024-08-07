@@ -160,6 +160,7 @@ class M_item extends MY_Model
         // UPDATE SCHEDULES
         $this->db->query("CALL sp_master_schedule_save(?, ?)", [$id, $d['v2schedules']]);
         $this->clean_mysqli_connection($this->db->conn_id);
+        // echo $this->db->last_query();
 
         return ["status"=>"OK", "data"=>$id, "q"=>$this->db->last_query()];
     }
@@ -180,7 +181,8 @@ class M_item extends MY_Model
 
     function search_schedules($id)
     {
-        $r = $this->db->query("SELECT M_ScheduleID id, M_ScheduleM_DayID as `day`, M_ScheduleDays as `days`, M_ScheduleTime `time`, M_ScheduleCapacity as capacity, M_DayName dayname
+        $r = $this->db->query("SELECT M_ScheduleID id, M_ScheduleM_DayID as `day`, M_ScheduleDays as `days`, M_ScheduleTime `time`, 
+                M_ScheduleStartDate as sdate, M_ScheduleEndDate as edate, M_ScheduleCapacity as capacity, M_DayName dayname
                 FROM m_schedule 
                 JOIN m_day ON M_ScheduleM_DayID = M_DayID
                 WHERE M_ScheduleM_ItemID = ?

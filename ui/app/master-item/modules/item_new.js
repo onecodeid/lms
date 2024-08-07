@@ -42,7 +42,7 @@ export default {
         days: [],
 
         v2Schedules: [],
-        v2ScheduleDefault: { id:0, days:null, capacity:0 },
+        v2ScheduleDefault: { id:0, days:null, capacity:0, time:'00:00', sdate: window.local_date },
 
         sdate: '',
         edate: '',

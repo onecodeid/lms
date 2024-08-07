@@ -15,7 +15,9 @@ class M_schedule extends MY_Model
         $l = ['records'=>[], 'total'=>0];
 
         $r = $this->db->query(
-                "SELECT M_ScheduleID schedule_id, IFNULL(M_ScheduleDays, '[]') schedule_days, M_ScheduleTime schedule_time, M_ScheduleCapacity schedule_capacity, M_DayID day_id, M_DayNameLocalized day_name
+                "SELECT M_ScheduleID schedule_id, IFNULL(M_ScheduleDays, '[]') schedule_days, M_ScheduleTime schedule_time, 
+                M_ScheduleStartDate as schedule_sdate, M_ScheduleEndDate as schedule_edate, 
+                M_ScheduleCapacity schedule_capacity, M_DayID day_id, M_DayNameLocalized day_name
                 FROM `{$this->table_name}`
                 JOIN m_day ON M_DayID = M_ScheduleM_DayID
                 WHERE `M_ScheduleM_ItemID` = ?
