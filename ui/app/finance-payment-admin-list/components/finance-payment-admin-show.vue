@@ -3,11 +3,11 @@
     v-model="dialog"
     scrollable
     persistent 
-    max-width="1000px"
+    max-width="500px"
     transition="dialog-transition"
 >
     <v-layout row wrap>
-        <v-flex xs6>
+        <v-flex xs12>
             <v-card>
                 <v-card-title primary-title class="pb-0 pt-3">
                     <v-layout row wrap>
@@ -144,13 +144,13 @@
             </v-card>
         </v-flex>
 
-        <v-flex xs6>
+        <!-- <v-flex xs6>
             <v-card class="fill-height">
                 <v-card-text style="height:100%">
                     <object :data="report_url" type="application/pdf" width="100%" height="100%"></object>
                 </v-card-text>
             </v-card>
-        </v-flex>
+        </v-flex> -->
 
         <common-dialog-image v-if="dialog_image" :image_url="receipt_url"></common-dialog-image>
     </v-layout>

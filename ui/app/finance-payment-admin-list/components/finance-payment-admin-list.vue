@@ -3,7 +3,7 @@
         <v-card-title primary-title class="pt-2 pb-0">
             <v-layout row wrap>
                 <v-flex xs4>
-                    <h3 class="display-1 font-weight-thin"><span class="orange--text">DAFTAR</span> PIUTANG</h3>
+                    <h3 class="display-1 font-weight-thin"><span class="orange--text">DAFTAR</span> SETORAN BELUM VERIFIKASI</h3>
                 </v-flex>
                 <v-flex xs2>
                     <common-datepicker
@@ -84,8 +84,8 @@
                     <td class="text-xs-center pa-1" v-bind:class="status_color(props.item.M_OrderStatusCode)" @click="select(props.item)">
                         <div>{{ props.item.M_OrderStatusName }}</div></td>
                     <td class="text-xs-center pa-0" @click="select(props.item)">
-                        <v-btn color="orange" class="btn-icon ma-0 xs6" small @click="print_invoice(props.item)" v-if="btn_inv_show(props.item.M_OrderStatusCode)" dark v-show="props.item.M_OrderStatusCode == 'SO.Confirmed'">
-                            <v-icon class="mr-2">print</v-icon> Inv</v-btn>
+                        <!-- <v-btn color="orange" class="btn-icon ma-0 xs6" small @click="print_invoice(props.item)" v-if="btn_inv_show(props.item.M_OrderStatusCode)" dark v-show="props.item.M_OrderStatusCode == 'SO.Confirmed'">
+                            <v-icon class="mr-2">print</v-icon> Inv</v-btn> -->
                         <v-btn color="primary" class="btn-icon ma-0" small @click="show(props.item)" v-show="props.item.M_OrderStatusCode == 'SO.Confirmed'">Lihat</v-btn>
                         <v-btn color="deep-orange darken-4" class="btn-icon ma-0" dark small @click="show(props.item)" v-show="props.item.M_OrderStatusCode == 'IV.Paid'">Verifikasi</v-btn>
 

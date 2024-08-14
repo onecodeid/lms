@@ -24,3 +24,40 @@
         Header set X-Robots-Tag "noindex, noarchive, nosnippet"
     </FilesMatch>
 </IfModule>
+
+<IfModule mod_setenvif.c>
+SetEnvIfNoCase Host lpkglobal\.onecode\.id$ ENVIRONTMENT=production
+SetEnvIfNoCase Host localhost$ ENVIRONTMENT=development
+</IfModule>
+
+<IfModule !mod_setenvif.c>
+    SetEnv ENVIRONTMENT=development
+</IfModule>
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+# Redirect /admin to /ui/app/admin
+RewriteCond %{REQUEST_URI} ^/admin$
+RewriteCond %{ENV:ENVIRONTMENT} production
+RewriteRule ^(.*)$ /ui/app/finance-payment-admin-list [L,R=301]
+
+# Redirect root or any other access to /ui/app/web-home
+RewriteCond %{REQUEST_URI} !^/ui/
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_URI} !^/assets/
+RewriteCond %{ENV:ENVIRONTMENT} production
+RewriteRule ^(.*)$ /ui/app/web-register [L,R=301]
+
+# Redirect /admin to /ui/app/admin
+RewriteCond %{REQUEST_URI} ^/lms/admin$
+RewriteCond %{ENV:ENVIRONTMENT} development
+RewriteRule ^(.*)$ /lms/ui/app/finance-payment-admin-list [L,R=301]
+
+# Redirect root or any other access to /ui/app/web-home
+RewriteCond %{REQUEST_URI} !^/lms/ui/
+RewriteCond %{REQUEST_URI} !^/lms/api/
+RewriteCond %{REQUEST_URI} !^/lms/assets/
+RewriteCond %{ENV:ENVIRONTMENT} development
+RewriteRule ^(.*)$ /lms/ui/app/web-register [L,R=301]
+</IfModule>
