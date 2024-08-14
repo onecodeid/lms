@@ -4,7 +4,7 @@
 //
 //
 // Actions
-import register from "./modules/register.js?t=123";
+import register from "./modules/register.js?t=1s23";
 import system from "../assets/js/system.js";
 import payment2 from "../finance-payment-admin-list/modules/payment.js?t=123";
 

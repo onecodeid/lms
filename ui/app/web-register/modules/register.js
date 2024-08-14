@@ -156,6 +156,8 @@ export default {
                 cust_name: state.cust_name,
                 cust_address: state.cust_address,
                 cust_city_id: 0, //state.selected_city.M_CityID,
+                cust_email: state.cust_email,
+                cust_sex: state.cust_sex,
 
                 coupon_code: state.coupon_code,
                 coupon_type: 'X',

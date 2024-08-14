@@ -75,7 +75,9 @@ class L_So extends MY_Model
             'cust_address' => $inp['cust_address'],
             'cust_postcode' => $inp['cust_postcode'],
             'cust_phone' => $inp['cust_phone'],
-            'cust_kelurahan_id' => isset($inp['cust_kelurahan_id']) ? $inp['cust_kelurahan_id'] : 0
+            'cust_kelurahan_id' => isset($inp['cust_kelurahan_id']) ? $inp['cust_kelurahan_id'] : 0,
+            'cust_email' => $inp['cust_email'],
+            'cust_sex' => $inp['cust_sex']
         ]);
 
         $r = $this->db->query("CALL sp_so_qo_save(?, ?, ?, ?, ?)", [$inp['order_id'], $cdata, $hdata, json_encode($inp['json_data']), $uid])

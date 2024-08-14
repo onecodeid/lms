@@ -11,6 +11,8 @@ DECLARE cust_postcode VARCHAR(10);
 DECLARE cust_phone VARCHAR(25);
 DECLARE cust_level_id INTEGER;
 DECLARE cust_id INTEGER;
+DECLARE cust_email VARCHAR(255);
+DECLARE cust_sex CHAR(1);
 
 DECLARE order_number VARCHAR(25);
 DECLARE tmp VARCHAR(500);
@@ -85,7 +87,9 @@ SET cust_name = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_name'));
 SET cust_address = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_address'));
 SET cust_phone = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_phone'));
 SET cust_postcode = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_postcode'));
-SET cust_kelurahan_id = 0; 
+SET cust_kelurahan_id = 0;
+SET cust_email = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_email'));
+SET cust_sex = JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_sex'));
 -- JSON_UNQUOTE(JSON_EXTRACT(cdata, '$.cust_kelurahan_id'));
 SET cust_level_id = (SELECT M_CustomerLevelID FROM m_customerlevel WHERE M_CustomerLevelCode = "CUST.ENDUSER");
 
@@ -95,8 +99,10 @@ IF cust_id IS NULL OR cust_id = 0 THEN
 		M_CustomerAddress,
 		M_CustomerM_KelurahanID,
 		M_CustomerPhone,
-		M_CustomerUserID)
-	SELECT cust_level_id, cust_name, cust_address, cust_kelurahan_id, cust_phone, uid;
+		M_CustomerUserID,
+		M_CustomerEmail,
+		M_CustomerSex)
+	SELECT cust_level_id, cust_name, cust_address, cust_kelurahan_id, cust_phone, uid, cust_email, cust_sex;
 	SET cust_id = (SELECT LAST_INSERT_ID());
 END IF;
 
