@@ -47,7 +47,7 @@ module.exports = {
             appTitle: 'LPK Global',
             sidebar: false,
             menuItems: [
-                { title: 'Home', path: '/web-home', icon: 'home' },
+                { title: 'Home', path: '/web-product', icon: 'home' },
                 { title: 'Pendaftaran', path: '/web-register', icon: 'face' },
                 { title: 'Konfirmasi', path: '/web-payment-confirmation', icon: 'money' },
                 { title: 'Log In', path: '/system-login', icon: 'lock_open', blank: true }

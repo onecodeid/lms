@@ -1,6 +1,10 @@
 <template>
     <v-row no-gutters>
         <v-col cols="6" class="offset-3">
+            <v-alert :value="true" type="info" class="mt-2 mb-4">
+                Screenshot halaman ini untuk melakukan konfirmasi pembayaran !
+            </v-alert>
+
             <v-card>
                 <v-card-title primary-title class="pb-0 pt-3">
                     <v-row no-gutters>
@@ -61,7 +65,7 @@
                                 <v-card-text>
                                     <v-list-item two-line v-for="(a, n) in accounts" :key="n">
                                         <v-list-item-icon>
-                                            <v-img :src="'../'+a.bank_logo" height="20" contain width="30"></v-img>
+                                            <v-img :src="'../' + a.bank_logo" height="20" contain width="30"></v-img>
                                         </v-list-item-icon>
                                         <v-list-item-content>
                                             <v-list-item-title>{{ a.bank_name }}</v-list-item-title>
@@ -80,12 +84,12 @@
                                         <v-col cols="9">
                                             <div><b>{{ selected_order.M_PaymentTypeName }}</b></div>
                                             <div>{{ selected_order.account_bank_name }} No. {{
-                                selected_order.M_BankAccountNumber }}</div>
+                selected_order.M_BankAccountNumber }}</div>
                                             <div>a/n {{ selected_order.M_BankAccountName }}</div>
 
                                             <div class="mt-3"><b>BANK PENGIRIM</b></div>
                                             <div>{{ selected_order.M_BankName }} a/n {{
-                                selected_order.F_PaymentSenderName }}</div>
+                selected_order.F_PaymentSenderName }}</div>
 
                                         </v-col>
                                         <v-col cols="3" class="text-xs-right">
@@ -119,7 +123,7 @@
                                                 <template v-for="(item, i) of selected_order.items">
                                                     <div :class="(i % 2 == 0 ? 'blue--text' : '') + ' mr-2'"
                                                         v-bind:key="i">{{
-                                item.item_name }} ({{ item.item_qty }})</div>
+                item.item_name }} ({{ item.item_qty }})</div>
                                                 </template>
                                             </div>
 
@@ -154,7 +158,7 @@
             </v-card>
         </v-col>
 
-        
+
 
         <!-- <common-dialog-image v-if="dialog_image" :image_url="receipt_url"></common-dialog-image> -->
     </v-row>
