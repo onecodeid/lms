@@ -32,7 +32,7 @@
                                             v-model="cust_address"></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
-                                        <v-select :items="sexes" label="Jenis Kelamin" v-model="cust_sex"></v-select>
+                                        <v-select :items="sexes" label="Jenis Kelamin" v-model="cust_sex" item-value="id" item-text="text"></v-select>
                                         <!-- <v-radio-group v-model="row" row label="Jenis Kelamin">
                                             <v-radio label="Option 1" value="radio-1"></v-radio>
                                             <v-radio label="Option 2" value="radio-2"></v-radio>
