@@ -149,15 +149,17 @@ class Payment extends MY_Controller
 
             // Send email
             if(!$mail->send()){
-                echo 'Message could not be sent.';
-                echo 'Mailer Error: ' . $mail->ErrorInfo;
+                $this->sys_error('Message could not be sent : ' . $mail->ErrorInfo);
+                // echo 'Message could not be sent.';
+                // echo 'Mailer Error: ' . $mail->ErrorInfo;
             }else{
-                echo 'Email telah terkirim ke Customer';
+                $this->sys_ok($r->data);
+                // echo 'Email telah terkirim ke Customer';
                 
                 // $this->s_emailschedule->sent($x->S_EmailScheduleID);
             }
 
-            $this->sys_ok($r->data);
+            
         }
             
         else
