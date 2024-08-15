@@ -331,8 +331,8 @@
             <v-card-actions>
                 <v-btn color="primary" flat @click="dialog=!dialog">Batal</v-btn>
                 <v-spacer></v-spacer>
-                <v-btn color="success" @click="publish('Y')" v-show="!!edit && item_publish=='N'">Publish</v-btn>
-                <v-btn color="red" dark @click="publish('N')" v-show="!!edit && item_publish=='Y'">UnPublish</v-btn>
+                <!-- <v-btn color="success" @click="publish('Y')" v-show="!!edit && item_publish=='N'">Publish</v-btn>
+                <v-btn color="red" dark @click="publish('N')" v-show="!!edit && item_publish=='Y'">UnPublish</v-btn> -->
                 <v-btn color="primary" @click="save">Simpan</v-btn>                
             </v-card-actions>
         </v-card>
