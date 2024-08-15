@@ -10,7 +10,7 @@
             </v-card-title>
 
             <v-card-text>
-                <v-layout row wrap mb-3>
+                <!-- <v-layout row wrap mb-3>
                     <v-flex xs12>
                         <v-autocomplete
                             label="Propinsi"
@@ -31,7 +31,6 @@
                                 >
                                 <v-list-tile-content>
                                 <v-list-tile-title v-text="item.M_ProvinceName"></v-list-tile-title>
-                                <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                 </v-list-tile-content>
                             </template>
 
@@ -61,13 +60,12 @@
                                 >
                                 <v-list-tile-content>
                                 <v-list-tile-title v-text="item.M_CityName"></v-list-tile-title>
-                                <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                 </v-list-tile-content>
                             </template>
 
                         </v-autocomplete>
                     </v-flex>
-                </v-layout>
+                </v-layout> -->
 
                 <v-layout row wrap mb-3>
                     <v-flex xs12 mb-3>
@@ -90,7 +88,6 @@
                                 >
                                 <v-list-tile-content>
                                 <v-list-tile-title v-text="item.M_ItemName"></v-list-tile-title>
-                                <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                 </v-list-tile-content>
                             </template>
 
@@ -117,7 +114,6 @@
                                 >
                                 <v-list-tile-content>
                                 <v-list-tile-title v-text="item.M_CustomerLevelName"></v-list-tile-title>
-                                <!-- <v-list-tile-sub-title v-text="getAddress(item)"></v-list-tile-sub-title> -->
                                 </v-list-tile-content>
                             </template>
 

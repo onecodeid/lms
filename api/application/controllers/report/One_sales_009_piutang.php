@@ -79,7 +79,7 @@ class One_sales_009_piutang extends RPT_Controller
             $hy = $this->pdf->GetY();
             // $this->pdf->Image(base_url() . '/assets/images/logo-1-1.png', 0.8, 0.7, 3);
             $this->my_header($this, 
-                'Laporan Daftar Piutang', 
+                'Laporan Daftar Setoran Belum Terverifikasi', 
                 'Periode : ' . date('d/m/Y', strtotime($this->input->get('sdate'))) . ' - ' .  date('d/m/Y', strtotime($this->input->get('edate'))), 'L');
 
             
