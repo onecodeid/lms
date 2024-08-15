@@ -184,7 +184,7 @@ class M_item extends MY_Model
         $r = $this->db->query("SELECT M_ScheduleID id, M_ScheduleM_DayID as `day`, M_ScheduleDays as `days`, M_ScheduleTime `time`, 
                 M_ScheduleStartDate as sdate, M_ScheduleEndDate as edate, M_ScheduleCapacity as capacity, M_DayName dayname
                 FROM m_schedule 
-                JOIN m_day ON M_ScheduleM_DayID = M_DayID
+                LEFT JOIN m_day ON M_ScheduleM_DayID = M_DayID
                 WHERE M_ScheduleM_ItemID = ?
                 aND M_ScheduleIsActive = 'Y'
                 ORDER BY M_ScheduleM_DayID, M_ScheduleTime", [$id]);
