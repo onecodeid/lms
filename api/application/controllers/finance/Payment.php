@@ -59,13 +59,15 @@ class Payment extends MY_Controller
             $mail->Port     = 587;
             
             $mail->setFrom($em->email_username, 'LPK Global');
+            $maildata = json_decode($r->data);
 
             // Add a recipient
             $mail->addAddress("satukode.id@gmail.com");
             $mail->addAddress("naranis2020@gmail.com");
+            $mail->addAddress($maildata->customer_email);
 
             // Email subject
-            $mail->Subject = 'Konfirmasi Pembayaran untuk Fulan ';
+            $mail->Subject = 'Konfirmasi Pembayaran untuk '. $maildata->customer_email;
                 
             // Set email format to HTML
             $mail->isHTML(true);
@@ -73,7 +75,7 @@ class Payment extends MY_Controller
             // Email body content
             // $mailContent = "<h1>Send HTML Email using SMTP in CodeIgniter</h1>
             //     <p>This is a test email sending using SMTP mail server with PHPMailer.</p>";
-            $maildata = json_decode($r->data);
+            
             $mailContent = '<!DOCTYPE html>
 <html lang="en">
 <head>
