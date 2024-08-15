@@ -60,7 +60,7 @@
                     <td class="text-xs-left pa-2" @click="select(props.item)" v-bind:class="is_selected(props.item) ? '':'zalfa-line-trough'">
                         {{ props.item.M_ItemName }}</td>
                     <td class="text-xs-left pa-2 text-xs-right" @click="select(props.item)">{{ one_money(props.item.L_SoDetailQty) }}</td>
-                    <td class="text-xs-left pa-2 text-xs-right" @click="select(props.item)">
+                    <!-- <td class="text-xs-left pa-2 text-xs-right" @click="select(props.item)">
                         <v-text-field
                             hide-details
                             type="number"
@@ -74,8 +74,8 @@
                             
                         ></v-text-field>
                         <div v-show="!is_new">{{props.item.L_SoDetailApprovedQty}}</div>
-                    </td>
-                    <td class="text-xs-left pa-2 text-xs-right" @click="select(props.item)">{{ one_money(props.item.I_StockQty) }}</td>
+                    </td> -->
+                    <!-- <td class="text-xs-left pa-2 text-xs-right" @click="select(props.item)">{{ one_money(props.item.I_StockQty) }}</td> -->
                     <td class="text-xs-left pa-2 text-xs-right" @click="select(props.item)">{{ one_money(props.item.L_SoDetailPrice) }}</td>
                     <td class="text-xs-left pa-2 text-xs-right" @click="select(props.item)">{{ one_money(props.item.L_SoDetailDiscTotal) }}</td>
                     <td class="text-xs-left pa-2 text-xs-right" @click="select(props.item)">{{ one_money(props.item.L_SoDetailSubTotal) }}</td>
@@ -372,10 +372,10 @@ module.exports = {
                     class: "pa-2 indigo lighten-3 white--text"
                 },
                 {
-                    text: "NAMA BARANG",
+                    text: "NAMA KURSUS",
                     align: "center",
                     sortable: false,
-                    width: "35%",
+                    width: "55%",
                     class: "pa-2 indigo lighten-3 white--text"
                 },
                 {
@@ -385,20 +385,20 @@ module.exports = {
                     width: "10%",
                     class: "pa-2 indigo lighten-3 white--text"
                 },
-                {
-                    text: "APPR QTY",
-                    align: "right",
-                    sortable: false,
-                    width: "10%",
-                    class: "pa-2 indigo lighten-3 white--text"
-                },
-                {
-                    text: "STOK",
-                    align: "right",
-                    sortable: false,
-                    width: "10%",
-                    class: "pa-2 indigo lighten-3 white--text"
-                },
+                // {
+                //     text: "APPR QTY",
+                //     align: "right",
+                //     sortable: false,
+                //     width: "10%",
+                //     class: "pa-2 indigo lighten-3 white--text"
+                // },
+                // {
+                //     text: "STOK",
+                //     align: "right",
+                //     sortable: false,
+                //     width: "10%",
+                //     class: "pa-2 indigo lighten-3 white--text"
+                // },
                 {
                     text: "HARGA",
                     align: "right",
